@@ -121,16 +121,19 @@ async def _proxy(request: Request, prefix: str, port: int) -> Response:
         )
 
 
+@app.api_route("/m1", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
 @app.api_route("/m1/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-async def proxy_m1(request: Request, path: str):
+async def proxy_m1(request: Request, path: str = ""):
     return await _proxy(request, "m1", 8001)
 
 
+@app.api_route("/m2", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
 @app.api_route("/m2/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-async def proxy_m2(request: Request, path: str):
+async def proxy_m2(request: Request, path: str = ""):
     return await _proxy(request, "m2", 8002)
 
 
+@app.api_route("/m3", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
 @app.api_route("/m3/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-async def proxy_m3(request: Request, path: str):
+async def proxy_m3(request: Request, path: str = ""):
     return await _proxy(request, "m3", 8003)
