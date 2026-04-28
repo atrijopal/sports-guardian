@@ -439,27 +439,24 @@ body::before{
 
 <!-- MODULE IFRAMES -->
 <div class="view" id="view-m1">
-  <iframe class="mod-frame" id="frame-m1" src="" data-src="http://localhost:8000"></iframe>
+  <iframe class="mod-frame" id="frame-m1" src="" data-src="/m1"></iframe>
 </div>
 <div class="view" id="view-m2">
-  <iframe class="mod-frame" id="frame-m2" src="" data-src="http://localhost:8002"></iframe>
+  <iframe class="mod-frame" id="frame-m2" src="" data-src="/m2"></iframe>
 </div>
 <div class="view" id="view-m3">
-  <iframe class="mod-frame" id="frame-m3" src="" data-src="http://localhost:8001"></iframe>
+  <iframe class="mod-frame" id="frame-m3" src="" data-src="/m3"></iframe>
 </div>
 
 <script>
-const PORTS = { m1: 8000, m2: 8002, m3: 8001 };
+const PING = { m1: '/m1/api/list', m2: '/m2/api/stats', m3: '/m3/api/sessions' };
 const loaded = { m1: false, m2: false, m3: false };
 
 function show(mod) {
-  // Update nav
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.mod === mod));
-  // Update views
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + mod).classList.add('active');
 
-  // Lazy-load iframe on first visit
   if (mod !== 'home' && !loaded[mod]) {
     const frame = document.getElementById('frame-' + mod);
     frame.src = frame.dataset.src;
@@ -467,14 +464,11 @@ function show(mod) {
   }
 }
 
-// Status pings
-async function pingModule(mod, port, ringId, txtId) {
+async function pingModule(mod, ringId, txtId) {
   const ring = document.getElementById(ringId);
   const txt  = document.getElementById(txtId);
   try {
-    const r = await fetch(`http://localhost:${port}/api/${mod === 'm2' ? 'stats' : 'list'}`, {
-      signal: AbortSignal.timeout(3000)
-    });
+    const r = await fetch(PING[mod], { signal: AbortSignal.timeout(5000) });
     if (r.ok) {
       ring.className = 'status-ring online';
       txt.className  = 'status-txt online';
@@ -490,9 +484,9 @@ async function pingModule(mod, port, ringId, txtId) {
 
 async function checkAll() {
   const [a, b, c] = await Promise.all([
-    pingModule('m1', 8000, 's1-ring', 's1-txt'),
-    pingModule('m2', 8002, 's2-ring', 's2-txt'),
-    pingModule('m3', 8001, 's3-ring', 's3-txt'),
+    pingModule('m1', 's1-ring', 's1-txt'),
+    pingModule('m2', 's2-ring', 's2-txt'),
+    pingModule('m3', 's3-ring', 's3-txt'),
   ]);
   const n = [a, b, c].filter(Boolean).length;
   const lbl = document.getElementById('sys-label');
