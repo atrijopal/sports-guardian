@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUARDIAN — Digital Asset Protection Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --void:#030508; --base:#070B14; --surface:#0B1222; --raised:#101A2E;
+  --b0:#142030; --b1:#1C3048; --b2:#284468;
+  --amber:#FF5500; --amber-s:rgba(255,85,0,.12); --amber-g:rgba(255,85,0,.35);
+  --frost:#00BFFF; --frost-s:rgba(0,191,255,.10); --frost-g:rgba(0,191,255,.30);
+  --fire:#FF2244;  --fire-s:rgba(255,34,68,.10);  --fire-g:rgba(255,34,68,.30);
+  --chain:#00F5A0; --chain-s:rgba(0,245,160,.10); --chain-g:rgba(0,245,160,.28);
+  --t1:#CBD8E4; --t2:#527288; --t3:#263848;
+  --fd:'Chakra Petch',sans-serif; --fm:'Azeret Mono',monospace;
+}
+
+html,body{height:100%;overflow:hidden}
+
+body{
+  background:var(--void);
+  background-image:radial-gradient(var(--b0) 1px,transparent 1px);
+  background-size:28px 28px;
+  color:var(--t1);
+  font-family:var(--fd);
+}
+
+body::before{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px);
+  pointer-events:none;z-index:9999;
+}
+
+/* ── NAV ────────────────────────────────────────────────── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:44px;
+  display:grid;
+  grid-template-columns:220px 1fr 180px;
+  align-items:center;
+  background:var(--base);
+  border-bottom:1px solid var(--b0);
+  padding:0 20px;
+}
+
+.nav-brand{
+  font-family:var(--fm);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-brand-name{color:#fff;font-weight:500;}
+.nav-brand-sep{color:var(--t3);}
+.nav-brand-sub{color:var(--t3);}
+
+.nav-tabs{
+  display:flex;align-items:center;justify-content:center;gap:2px;
+}
+
+.nav-tab{
+  font-family:var(--fm);font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:5px 14px;border-radius:2px;
+  border:1px solid transparent;
+  background:transparent;color:var(--t3);
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;gap:6px;
+}
+.nav-tab:hover{color:var(--t1);border-color:var(--b1);}
+.nav-tab.active{color:#fff;background:var(--raised);border-color:var(--b2);}
+.nav-tab .dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--t3);transition:all .2s;
+}
+.nav-tab[data-mod="m1"].active .dot{background:var(--frost);box-shadow:0 0 6px var(--frost);}
+.nav-tab[data-mod="m2"].active .dot{background:var(--fire);box-shadow:0 0 6px var(--fire);}
+.nav-tab[data-mod="m3"].active .dot{background:var(--chain);box-shadow:0 0 6px var(--chain);}
+.nav-tab[data-mod="home"].active .dot{background:var(--amber);box-shadow:0 0 6px var(--amber);}
+
+.nav-right{
+  display:flex;align-items:center;justify-content:flex-end;gap:8px;
+  font-family:var(--fm);font-size:8px;letter-spacing:.14em;color:var(--t3);
+  text-transform:uppercase;
+}
+.sys-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--chain);box-shadow:0 0 8px var(--chain);
+  animation:sdot 2.4s ease-in-out infinite;
+}
+@keyframes sdot{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── VIEWS ──────────────────────────────────────────────── */
+.view{
+  position:fixed;top:44px;left:0;right:0;bottom:0;
+  display:none;
+}
+.view.active{display:block;}
+
+/* iframes */
+.mod-frame{
+  width:100%;height:100%;
+  border:none;background:var(--void);
+}
+
+/* ── HOME ───────────────────────────────────────────────── */
+#view-home{
+  overflow-y:auto;
+  padding:0 0 60px;
+}
+#view-home::-webkit-scrollbar{width:4px;}
+#view-home::-webkit-scrollbar-thumb{background:var(--b1);border-radius:2px;}
+
+.home-hero{
+  text-align:center;
+  padding:64px 24px 52px;
+  position:relative;overflow:hidden;
+  isolation:isolate;
+}
+
+.hero-blob{
+  position:absolute;border-radius:50%;
+  filter:blur(100px);pointer-events:none;z-index:-1;
+}
+.hb1{
+  width:600px;height:320px;
+  background:radial-gradient(ellipse,rgba(255,85,0,.07) 0%,transparent 70%);
+  top:-80px;left:5%;
+  animation:hb1 14s ease-in-out infinite alternate;
+}
+.hb2{
+  width:500px;height:280px;
+  background:radial-gradient(ellipse,rgba(0,191,255,.06) 0%,transparent 70%);
+  top:-60px;right:8%;
+  animation:hb2 11s ease-in-out infinite alternate;
+}
+.hb3{
+  width:400px;height:250px;
+  background:radial-gradient(ellipse,rgba(0,245,160,.05) 0%,transparent 70%);
+  bottom:-40px;left:40%;
+  animation:hb3 16s ease-in-out infinite alternate;
+}
+@keyframes hb1{from{transform:translate(0,0) scale(1)}to{transform:translate(60px,40px) scale(1.1)}}
+@keyframes hb2{from{transform:translate(0,0) scale(1.1)}to{transform:translate(-50px,30px) scale(.9)}}
+@keyframes hb3{from{transform:translate(0,0)}to{transform:translate(40px,-30px)}}
+
+.home-eyebrow{
+  font-family:var(--fm);font-size:9px;letter-spacing:.28em;
+  color:var(--amber);text-transform:uppercase;margin-bottom:16px;
+  animation:fin .5s ease-out .1s both;
+}
+.home-title{
+  font-weight:700;font-size:clamp(52px,9vw,108px);
+  line-height:.9;letter-spacing:-.01em;color:#fff;
+  margin-bottom:20px;
+  text-shadow:0 0 80px rgba(0,191,255,.1);
+  animation:fin .5s ease-out .2s both;
+}
+.home-tagline{
+  font-family:var(--fm);font-size:12px;color:var(--t2);
+  letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;
+  animation:fin .5s ease-out .3s both;
+}
+.home-sub{
+  font-size:13px;color:var(--t3);letter-spacing:.06em;
+  animation:fin .5s ease-out .35s both;
+}
+
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Module cards */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  max-width:1080px;
+  margin:0 auto 2px;
+  padding:0 24px;
+  background:var(--b0);
+  animation:fin .5s ease-out .45s both;
+}
+@media(max-width:720px){.cards-grid{grid-template-columns:1fr;}}
+
+.mcard{
+  background:var(--surface);
+  padding:32px 28px;
+  position:relative;overflow:hidden;
+  cursor:pointer;
+  transition:background .2s;
+}
+.mcard:hover{background:var(--raised);}
+
+.mcard::after{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+}
+.mcard.m1::after{background:var(--frost);}
+.mcard.m2::after{background:var(--fire);}
+.mcard.m3::after{background:var(--chain);}
+
+.mcard-num{
+  font-family:var(--fm);font-size:8px;letter-spacing:.2em;
+  text-transform:uppercase;margin-bottom:18px;
+  display:flex;align-items:center;gap:8px;
+}
+.mcard.m1 .mcard-num{color:var(--frost);}
+.mcard.m2 .mcard-num{color:var(--fire);}
+.mcard.m3 .mcard-num{color:var(--chain);}
+
+.mcard-num-badge{
+  padding:2px 8px;border-radius:2px;border:1px solid;font-size:8px;
+}
+.mcard.m1 .mcard-num-badge{border-color:rgba(0,191,255,.3);background:var(--frost-s);}
+.mcard.m2 .mcard-num-badge{border-color:rgba(255,34,68,.3);background:var(--fire-s);}
+.mcard.m3 .mcard-num-badge{border-color:rgba(0,245,160,.3);background:var(--chain-s);}
+
+.mcard-q{
+  font-size:11px;color:var(--t2);
+  font-family:var(--fm);letter-spacing:.06em;margin-bottom:10px;
+}
+
+.mcard-name{
+  font-weight:700;font-size:clamp(20px,2.5vw,28px);
+  line-height:1;letter-spacing:.02em;color:#fff;margin-bottom:12px;
+}
+
+.mcard-desc{
+  font-size:11px;color:var(--t2);line-height:1.7;
+  font-family:var(--fm);letter-spacing:.04em;margin-bottom:24px;
+}
+
+.mcard-status{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--fm);font-size:8px;letter-spacing:.12em;
+  text-transform:uppercase;margin-bottom:20px;
+}
+.status-ring{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--b2);border:1px solid var(--b2);
+  transition:all .3s;
+}
+.status-ring.online{background:var(--chain);border-color:var(--chain);box-shadow:0 0 8px var(--chain-g);}
+.status-ring.offline{background:var(--fire);border-color:var(--fire);}
+.status-txt{color:var(--t3);}
+.status-txt.online{color:var(--chain);}
+.status-txt.offline{color:var(--fire);}
+
+.mcard-btn{
+  font-family:var(--fd);font-size:11px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:9px 20px;border-radius:2px;border:1px solid;
+  background:transparent;cursor:pointer;
+  transition:background .2s,box-shadow .2s;
+  display:inline-block;
+}
+.mcard.m1 .mcard-btn{color:var(--frost);border-color:rgba(0,191,255,.3);}
+.mcard.m1 .mcard-btn:hover{background:var(--frost-s);box-shadow:0 0 16px var(--frost-g);}
+.mcard.m2 .mcard-btn{color:var(--fire);border-color:rgba(255,34,68,.3);}
+.mcard.m2 .mcard-btn:hover{background:var(--fire-s);box-shadow:0 0 16px var(--fire-g);}
+.mcard.m3 .mcard-btn{color:var(--chain);border-color:rgba(0,245,160,.3);}
+.mcard.m3 .mcard-btn:hover{background:var(--chain-s);box-shadow:0 0 16px var(--chain-g);}
+
+/* Pipeline */
+.pipeline{
+  max-width:1080px;margin:2px auto 0;padding:0 24px;
+  background:var(--b0);
+  animation:fin .5s ease-out .55s both;
+}
+.pipeline-inner{
+  background:var(--surface);
+  padding:28px 32px;
+  display:flex;align-items:center;gap:0;
+}
+.pipe-step{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:8px;padding:0 16px;
+}
+.pipe-step:first-child{padding-left:0;}
+.pipe-step:last-child{padding-right:0;}
+.pipe-icon{
+  font-family:var(--fm);font-size:18px;margin-bottom:2px;
+}
+.pipe-label{
+  font-family:var(--fm);font-size:8px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--t3);
+}
+.pipe-name{font-size:11px;font-weight:600;color:var(--t2);}
+.pipe-arrow{
+  color:var(--b2);font-size:16px;
+  flex-shrink:0;padding:0 4px;margin-top:-8px;
+}
+
+.home-footer{
+  text-align:center;padding:40px 24px 0;
+  font-family:var(--fm);font-size:8px;color:var(--t3);
+  letter-spacing:.14em;text-transform:uppercase;
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <span class="nav-brand-name">SPORTS101</span>
+    <span class="nav-brand-sep">//</span>
+    <span class="nav-brand-sub">DAP PLATFORM</span>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-mod="home" onclick="show('home')">
+      <span class="dot"></span>Overview
+    </button>
+    <button class="nav-tab" data-mod="m1" onclick="show('m1')">
+      <span class="dot"></span>M1 // Fingerprint
+    </button>
+    <button class="nav-tab" data-mod="m2" onclick="show('m2')">
+      <span class="dot"></span>M2 // Threat Intel
+    </button>
+    <button class="nav-tab" data-mod="m3" onclick="show('m3')">
+      <span class="dot"></span>M3 // Attribution
+    </button>
+  </div>
+
+  <div class="nav-right">
+    <span class="sys-dot"></span>
+    <span id="sys-label">Checking...</span>
+  </div>
+</nav>
+
+<!-- HOME VIEW -->
+<div class="view active" id="view-home">
+  <div class="home-hero">
+    <div class="hero-blob hb1"></div>
+    <div class="hero-blob hb2"></div>
+    <div class="hero-blob hb3"></div>
+    <div class="home-eyebrow">Digital Asset Protection Platform</div>
+    <h1 class="home-title">GUARDIAN</h1>
+    <p class="home-tagline">Identify · Intercept · Attribute</p>
+    <p class="home-sub">Three modules. One mission. End-to-end sports content protection.</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="mcard m1" onclick="show('m1')">
+      <div class="mcard-num">
+        <span class="mcard-num-badge">MODULE 01</span>
+        Video Fingerprinting
+      </div>
+      <div class="mcard-q">"Is this our content?"</div>
+      <div class="mcard-name">Signal<br>Intercept</div>
+      <div class="mcard-desc">
+        Multi-layer perceptual fingerprinting — Visual pHash, Audio Chromaprint, and
+        broadcast-rhythm DNA — identifies pirated clips even after mirroring, muting,
+        cropping, speed changes, and re-encoding.
+      </div>
+      <div class="mcard-status">
+        <div class="status-ring" id="s1-ring"></div>
+        <span class="status-txt" id="s1-txt">checking…</span>
+      </div>
+      <button class="mcard-btn">Launch Module →</button>
+    </div>
+
+    <div class="mcard m2" onclick="show('m2')">
+      <div class="mcard-num">
+        <span class="mcard-num-badge">MODULE 02</span>
+        Threat Intelligence
+      </div>
+      <div class="mcard-q">"Where is piracy spreading?"</div>
+      <div class="mcard-name">Shadow<br>Network</div>
+      <div class="mcard-desc">
+        Live CertStream DNS monitoring + NLP domain classification maps piracy
+        networks in real time. Graph visualization surfaces operator clusters
+        across Telegram, Twitter, Reddit, and rogue domains.
+      </div>
+      <div class="mcard-status">
+        <div class="status-ring" id="s2-ring"></div>
+        <span class="status-txt" id="s2-txt">checking…</span>
+      </div>
+      <button class="mcard-btn">Launch Module →</button>
+    </div>
+
+    <div class="mcard m3" onclick="show('m3')">
+      <div class="mcard-num">
+        <span class="mcard-num-badge">MODULE 03</span>
+        Source Attribution
+      </div>
+      <div class="mcard-q">"WHO leaked it?"</div>
+      <div class="mcard-name">Source<br>Tracer</div>
+      <div class="mcard-desc">
+        Invisible forensic watermarking embeds unique session IDs via Spread Spectrum,
+        BPSK audio tones, and DCT coefficients. Extracts the leaker's identity even
+        from attacked clips — with Reed-Solomon error correction.
+      </div>
+      <div class="mcard-status">
+        <div class="status-ring" id="s3-ring"></div>
+        <span class="status-txt" id="s3-txt">checking…</span>
+      </div>
+      <button class="mcard-btn">Launch Module →</button>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipeline-inner">
+      <div class="pipe-step">
+        <div class="pipe-icon" style="color:var(--t3)">▶</div>
+        <div class="pipe-label">Pirate uploads</div>
+        <div class="pipe-name" style="color:var(--t3)">Attacked Clip</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-icon" style="color:var(--frost)">◈</div>
+        <div class="pipe-label">Module 01</div>
+        <div class="pipe-name" style="color:var(--frost)">Is it ours? ✓</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-icon" style="color:var(--fire)">◉</div>
+        <div class="pipe-label">Module 02</div>
+        <div class="pipe-name" style="color:var(--fire)">Map the network</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-icon" style="color:var(--chain)">◆</div>
+        <div class="pipe-label">Module 03</div>
+        <div class="pipe-name" style="color:var(--chain)">Who leaked it? ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-footer">
+    Sports101 &nbsp;·&nbsp; Hackathon Build &nbsp;·&nbsp; Digital Asset Protection Platform
+  </div>
+</div>
+
+<!-- MODULE IFRAMES -->
+<div class="view" id="view-m1">
+  <iframe class="mod-frame" id="frame-m1" src="" data-src="http://localhost:8000"></iframe>
+</div>
+<div class="view" id="view-m2">
+  <iframe class="mod-frame" id="frame-m2" src="" data-src="http://localhost:8002"></iframe>
+</div>
+<div class="view" id="view-m3">
+  <iframe class="mod-frame" id="frame-m3" src="" data-src="http://localhost:8001"></iframe>
+</div>
+
+<script>
+const PORTS = { m1: 8000, m2: 8002, m3: 8001 };
+const loaded = { m1: false, m2: false, m3: false };
+
+function show(mod) {
+  // Update nav
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.mod === mod));
+  // Update views
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + mod).classList.add('active');
+
+  // Lazy-load iframe on first visit
+  if (mod !== 'home' && !loaded[mod]) {
+    const frame = document.getElementById('frame-' + mod);
+    frame.src = frame.dataset.src;
+    loaded[mod] = true;
+  }
+}
+
+// Status pings
+async function pingModule(mod, port, ringId, txtId) {
+  const ring = document.getElementById(ringId);
+  const txt  = document.getElementById(txtId);
+  try {
+    const r = await fetch(`http://localhost:${port}/api/${mod === 'm2' ? 'stats' : 'list'}`, {
+      signal: AbortSignal.timeout(3000)
+    });
+    if (r.ok) {
+      ring.className = 'status-ring online';
+      txt.className  = 'status-txt online';
+      txt.textContent = 'online';
+      return true;
+    }
+  } catch (_) {}
+  ring.className = 'status-ring offline';
+  txt.className  = 'status-txt offline';
+  txt.textContent = 'offline';
+  return false;
+}
+
+async function checkAll() {
+  const [a, b, c] = await Promise.all([
+    pingModule('m1', 8000, 's1-ring', 's1-txt'),
+    pingModule('m2', 8002, 's2-ring', 's2-txt'),
+    pingModule('m3', 8001, 's3-ring', 's3-txt'),
+  ]);
+  const n = [a, b, c].filter(Boolean).length;
+  const lbl = document.getElementById('sys-label');
+  lbl.textContent = n === 3 ? '3 / 3 active' : `${n} / 3 active`;
+}
+
+checkAll();
+setInterval(checkAll, 30000);
+</script>
+</body>
+</html>

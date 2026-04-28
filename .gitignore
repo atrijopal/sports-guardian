@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Runtime data
+fingerprints_db.json
+session_registry.json
+data/graph.json
+data/raw/
+watermarked_outputs/
+temp_processing/
+demo_videos/
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Env files
+.env
+
+# Local API key files
+api.txt
+apikj.txt

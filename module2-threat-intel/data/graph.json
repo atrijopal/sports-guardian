@@ -1,0 +1,1735 @@
+{
+  "nodes": [
+    {
+      "type": "domain",
+      "label": "streameast-hd.xyz",
+      "metadata": {
+        "tld": ".xyz",
+        "registrar": "NameCheap",
+        "cert_issuer": "Let's Encrypt",
+        "ip": "104.21.11.22"
+      },
+      "first_seen": "2026-04-17T15:33:16.093392+00:00",
+      "last_seen": "2026-04-20T13:33:16.093438+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "39632c85-00b4-498e-8407-be734f4d6270",
+      "threat_score": 98.8,
+      "lifecycle_stage": "active",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "domain",
+      "label": "streameast-live.top",
+      "metadata": {
+        "tld": ".top",
+        "registrar": "NameCheap",
+        "cert_issuer": "Let's Encrypt",
+        "ip": "104.21.11.23"
+      },
+      "first_seen": "2026-04-17T17:33:16.093512+00:00",
+      "last_seen": "2026-04-20T12:33:16.093520+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "threat_score": 98.2,
+      "lifecycle_stage": "active",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "domain",
+      "label": "sportshd-free.online",
+      "metadata": {
+        "tld": ".online",
+        "registrar": "NameCheap",
+        "cert_issuer": "Let's Encrypt",
+        "ip": "104.21.11.24"
+      },
+      "first_seen": "2026-04-17T19:33:16.093550+00:00",
+      "last_seen": "2026-04-20T11:33:16.093556+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "threat_score": 97.6,
+      "lifecycle_stage": "active",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "domain",
+      "label": "streameast-v2.site",
+      "metadata": {
+        "tld": ".site",
+        "registrar": "NameCheap",
+        "cert_issuer": "Let's Encrypt",
+        "ip": "104.21.11.25"
+      },
+      "first_seen": "2026-04-18T15:33:16.093572+00:00",
+      "last_seen": "2026-04-20T14:33:16.093577+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "threat_score": 86.0,
+      "lifecycle_stage": "promotion",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "telegram_channel",
+      "label": "@streameast_official",
+      "metadata": {
+        "channel_name": "@streameast_official",
+        "subscribers": 45000
+      },
+      "first_seen": "2026-04-18T03:33:16.093592+00:00",
+      "last_seen": "2026-04-20T14:33:16.093597+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "2ef965a2-db01-48a8-b575-443ada7e140d",
+      "threat_score": 73.4,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "telegram_channel",
+      "label": "@sportsHD_links",
+      "metadata": {
+        "channel_name": "@sportsHD_links",
+        "subscribers": 28000
+      },
+      "first_seen": "2026-04-18T08:33:16.093609+00:00",
+      "last_seen": "2026-04-20T13:33:16.093614+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "59c71c53-b348-41ed-93cc-4953bb81ea1a",
+      "threat_score": 72.8,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "telegram_channel",
+      "label": "@freefootball_live",
+      "metadata": {
+        "channel_name": "@freefootball_live",
+        "subscribers": 19000
+      },
+      "first_seen": "2026-04-18T13:33:16.093637+00:00",
+      "last_seen": "2026-04-20T12:33:16.093643+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "6235971f-d9a2-46d9-bcbd-8ec39600f9b9",
+      "threat_score": 65.5,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "twitter_account",
+      "label": "@streamking2024",
+      "metadata": {
+        "handle": "@streamking2024",
+        "followers": 12400,
+        "verified": false,
+        "nlp_intent": "coded_distribution",
+        "nlp_threat_level": "high",
+        "nlp_summary": "Account uses DM-based distribution with coded language",
+        "nlp_threat_signals": [
+          "DM-based distribution",
+          "coded language"
+        ]
+      },
+      "first_seen": "2026-04-18T15:33:16.093656+00:00",
+      "last_seen": "2026-04-20T14:33:16.093661+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "aa1ba498-a145-4648-8fa6-b504ea2cdc1e",
+      "threat_score": 60.7,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "twitter_account",
+      "label": "@hdmatches_free",
+      "metadata": {
+        "handle": "@hdmatches_free",
+        "followers": 8200,
+        "verified": false
+      },
+      "first_seen": "2026-04-18T17:33:16.093675+00:00",
+      "last_seen": "2026-04-20T13:33:16.093680+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "89bf86b4-e47a-400b-b8dc-29c97b951b3f",
+      "threat_score": 60.1,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "twitter_account",
+      "label": "@livesports_247",
+      "metadata": {
+        "handle": "@livesports_247",
+        "followers": 5600,
+        "verified": false
+      },
+      "first_seen": "2026-04-18T19:33:16.093693+00:00",
+      "last_seen": "2026-04-20T12:33:16.093698+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "b58697b2-5236-4c10-b30e-f809c49ee19f",
+      "threat_score": 59.5,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "twitter_account",
+      "label": "@footystreams99",
+      "metadata": {
+        "handle": "@footystreams99",
+        "followers": 3100,
+        "verified": false
+      },
+      "first_seen": "2026-04-18T23:33:16.093709+00:00",
+      "last_seen": "2026-04-20T11:33:16.093714+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "237c9b38-6548-47ee-82b5-cee169349671",
+      "threat_score": 58.9,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "twitter_account",
+      "label": "@sportslinkbot",
+      "metadata": {
+        "handle": "@sportslinkbot",
+        "followers": 15800,
+        "verified": false
+      },
+      "first_seen": "2026-04-19T01:33:16.093728+00:00",
+      "last_seen": "2026-04-20T15:03:16.093734+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "a650eb69-4eba-4c7c-be9e-03ac97d16789",
+      "threat_score": 61.0,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "invite_link",
+      "label": "https://t.me/streameast_official",
+      "metadata": {
+        "url": "https://t.me/streameast_official",
+        "platform": "telegram"
+      },
+      "first_seen": "2026-04-18T13:33:16.093751+00:00",
+      "last_seen": "2026-04-20T14:33:16.093756+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "77e78d0d-313c-45ff-ac15-89e55c11f86b",
+      "threat_score": 90.4,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "invite_link",
+      "label": "https://discord.gg/fakeABC123",
+      "metadata": {
+        "url": "https://discord.gg/fakeABC123",
+        "platform": "discord"
+      },
+      "first_seen": "2026-04-18T18:33:16.093767+00:00",
+      "last_seen": "2026-04-20T13:33:16.093772+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "06e5c400-2fcb-4eb3-8c52-666b7610fb9b",
+      "threat_score": 63.1,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "invite_link",
+      "label": "https://t.me/sportsHD_links",
+      "metadata": {
+        "url": "https://t.me/sportsHD_links",
+        "platform": "telegram"
+      },
+      "first_seen": "2026-04-18T21:33:16.093784+00:00",
+      "last_seen": "2026-04-20T13:33:16.093793+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "0ac0dc0b-726f-4a58-a8da-f08ef9a0dbbe",
+      "threat_score": 76.4,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "reddit_account",
+      "label": "u/streamguy99",
+      "metadata": {
+        "username": "u/streamguy99",
+        "karma": 2300
+      },
+      "first_seen": "2026-04-19T03:33:16.093809+00:00",
+      "last_seen": "2026-04-20T10:33:16.093813+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "bc1500f2-4918-4a33-bbdf-7f698b05864c",
+      "threat_score": 48.7,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "reddit_account",
+      "label": "u/matchday_links",
+      "metadata": {
+        "username": "u/matchday_links",
+        "karma": 870
+      },
+      "first_seen": "2026-04-19T05:33:16.093825+00:00",
+      "last_seen": "2026-04-20T09:33:16.093830+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "548c9e35-a65d-4d63-be10-a301da25f2bd",
+      "threat_score": 48.1,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "reddit_account",
+      "label": "u/footballfree_hd",
+      "metadata": {
+        "username": "u/footballfree_hd",
+        "karma": 450
+      },
+      "first_seen": "2026-04-19T09:33:16.093843+00:00",
+      "last_seen": "2026-04-20T08:33:16.093848+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "c1b80149-1565-41de-90cc-6c1643afeb89",
+      "threat_score": 47.6,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "reddit_account",
+      "label": "u/sportshd_bot",
+      "metadata": {
+        "username": "u/sportshd_bot",
+        "karma": 1200
+      },
+      "first_seen": "2026-04-19T11:33:16.093860+00:00",
+      "last_seen": "2026-04-20T10:33:16.093869+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "42bb27ba-ff90-4c89-9409-ca59241839af",
+      "threat_score": 48.7,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "domain",
+      "label": "livematch-hd.site",
+      "metadata": {
+        "tld": ".site",
+        "ip": "185.220.101.10"
+      },
+      "first_seen": "2026-04-16T15:33:16.094339+00:00",
+      "last_seen": "2026-04-20T07:33:16.094344+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "3b15267b-8e1a-41f3-9467-6dad6511410b",
+      "threat_score": 82.1,
+      "lifecycle_stage": "active",
+      "cluster_id": null
+    },
+    {
+      "type": "domain",
+      "label": "soccerstreams-today.online",
+      "metadata": {
+        "tld": ".online",
+        "ip": "185.220.101.11"
+      },
+      "first_seen": "2026-04-16T21:33:16.094357+00:00",
+      "last_seen": "2026-04-20T09:33:16.094362+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "6d2020e7-03db-4d1e-93f5-d0abe7f27780",
+      "threat_score": 83.1,
+      "lifecycle_stage": "active",
+      "cluster_id": null
+    },
+    {
+      "type": "telegram_channel",
+      "label": "@soccer_streams_ring",
+      "metadata": {
+        "channel_name": "@soccer_streams_ring",
+        "subscribers": 32000
+      },
+      "first_seen": "2026-04-17T07:33:16.094378+00:00",
+      "last_seen": "2026-04-20T11:33:16.094384+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "0e1b7380-003c-4a15-834f-426e8ea04d6c",
+      "threat_score": 78.3,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_2"
+    },
+    {
+      "type": "telegram_channel",
+      "label": "@match_links_daily",
+      "metadata": {
+        "channel_name": "@match_links_daily",
+        "subscribers": 18000
+      },
+      "first_seen": "2026-04-17T07:33:16.094401+00:00",
+      "last_seen": "2026-04-20T11:33:16.094406+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "03ad8667-e6fb-4bdd-b8e4-d67162e7cebd",
+      "threat_score": 84.9,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_2"
+    },
+    {
+      "type": "telegram_channel",
+      "label": "@hd_streams_tg",
+      "metadata": {
+        "channel_name": "@hd_streams_tg",
+        "subscribers": 45000
+      },
+      "first_seen": "2026-04-17T07:33:16.094421+00:00",
+      "last_seen": "2026-04-20T11:33:16.094426+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "6196ed4b-fffe-4dbd-88e3-668a5dd33291",
+      "threat_score": 91.6,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_2"
+    },
+    {
+      "type": "telegram_channel",
+      "label": "@football_links_vip",
+      "metadata": {
+        "channel_name": "@football_links_vip",
+        "subscribers": 12000
+      },
+      "first_seen": "2026-04-17T07:33:16.094439+00:00",
+      "last_seen": "2026-04-20T11:33:16.094444+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "0181a78d-36a2-428e-8773-83423af02178",
+      "threat_score": 84.9,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_3"
+    },
+    {
+      "type": "telegram_channel",
+      "label": "@sport_updates_live",
+      "metadata": {
+        "channel_name": "@sport_updates_live",
+        "subscribers": 27000
+      },
+      "first_seen": "2026-04-17T07:33:16.094455+00:00",
+      "last_seen": "2026-04-20T11:33:16.094460+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "f5dd7058-706a-409a-8a8a-4158c5910dc3",
+      "threat_score": 78.3,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_3"
+    },
+    {
+      "type": "telegram_channel",
+      "label": "@freematch_channel",
+      "metadata": {
+        "channel_name": "@freematch_channel",
+        "subscribers": 9000
+      },
+      "first_seen": "2026-04-17T07:33:16.094476+00:00",
+      "last_seen": "2026-04-20T11:33:16.094481+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "2563ff8e-ddca-4f96-9002-a3bae5ef5bf4",
+      "threat_score": 71.6,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_3"
+    },
+    {
+      "type": "twitter_account",
+      "label": "@ringmaster_hd",
+      "metadata": {
+        "handle": "@ringmaster_hd",
+        "followers": 22000
+      },
+      "first_seen": "2026-04-17T15:33:16.094495+00:00",
+      "last_seen": "2026-04-20T10:33:16.094501+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "69ab2a47-e8de-4fb2-b5d8-09c4f6e645fc",
+      "threat_score": 51.7,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "twitter_account",
+      "label": "@sportsfeed_live",
+      "metadata": {
+        "handle": "@sportsfeed_live",
+        "followers": 9400
+      },
+      "first_seen": "2026-04-17T15:33:16.094513+00:00",
+      "last_seen": "2026-04-20T10:33:16.094519+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "f030477c-9958-4cb1-b121-d880915557eb",
+      "threat_score": 51.7,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "twitter_account",
+      "label": "@matchlinks_bot",
+      "metadata": {
+        "handle": "@matchlinks_bot",
+        "followers": 6700
+      },
+      "first_seen": "2026-04-17T15:33:16.094534+00:00",
+      "last_seen": "2026-04-20T10:33:16.094539+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "644a37a9-fa1c-4459-8450-44f2d3c97cce",
+      "threat_score": 51.7,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "twitter_account",
+      "label": "@tgstreams_today",
+      "metadata": {
+        "handle": "@tgstreams_today",
+        "followers": 4200
+      },
+      "first_seen": "2026-04-17T15:33:16.094552+00:00",
+      "last_seen": "2026-04-20T10:33:16.094557+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "ff84d371-af49-4ae9-abb9-baab6e290202",
+      "threat_score": 45.0,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "invite_link",
+      "label": "https://t.me/soccer_streams_ring",
+      "metadata": {
+        "url": "https://t.me/soccer_streams_ring",
+        "platform": "telegram"
+      },
+      "first_seen": "2026-04-17T17:33:16.094569+00:00",
+      "last_seen": "2026-04-20T11:33:16.094575+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "89fc6b1c-c357-4a2c-96e9-b4a5a527430e",
+      "threat_score": 61.9,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "invite_link",
+      "label": "https://t.me/hd_streams_tg",
+      "metadata": {
+        "url": "https://t.me/hd_streams_tg",
+        "platform": "telegram"
+      },
+      "first_seen": "2026-04-17T17:33:16.094587+00:00",
+      "last_seen": "2026-04-20T11:33:16.094592+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "7727ba1f-1e8b-4d57-aa14-c58b1238fd9b",
+      "threat_score": 61.9,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "invite_link",
+      "label": "https://t.me/football_links_vip",
+      "metadata": {
+        "url": "https://t.me/football_links_vip",
+        "platform": "telegram"
+      },
+      "first_seen": "2026-04-17T17:33:16.094605+00:00",
+      "last_seen": "2026-04-20T11:33:16.094613+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "95a118b5-ff24-41ab-888d-7345e3aa45ed",
+      "threat_score": 61.9,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "twitter_account",
+      "label": "@megastreams_io",
+      "metadata": {
+        "handle": "@megastreams_io",
+        "followers": 42000,
+        "verified": false,
+        "nlp_intent": "promotion",
+        "nlp_threat_level": "critical",
+        "nlp_summary": "High-follower account operating multiple rotating stream domains",
+        "nlp_threat_signals": [
+          "domain rotation",
+          "evasion pattern",
+          "high reach"
+        ]
+      },
+      "first_seen": "2026-04-06T15:33:16.095128+00:00",
+      "last_seen": "2026-04-20T15:03:16.095134+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "00f2f4f0-ba15-4aec-b1bb-3d92f34a0b21",
+      "threat_score": 87.7,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "domain",
+      "label": "megastreams.xyz",
+      "metadata": {
+        "tld": ".xyz",
+        "registrar": "NameCheap"
+      },
+      "first_seen": "2026-04-08T15:33:16.095150+00:00",
+      "last_seen": "2026-04-09T03:33:16.095155+00:00",
+      "lifecycle_stage": "promotion",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "e0ec5ccd-bf96-4ee4-8042-afa57599d49d",
+      "threat_score": 43.4,
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "domain",
+      "label": "megastreams-v2.top",
+      "metadata": {
+        "tld": ".top",
+        "registrar": "NameCheap"
+      },
+      "first_seen": "2026-04-12T15:33:16.095164+00:00",
+      "last_seen": "2026-04-13T03:33:16.095169+00:00",
+      "lifecycle_stage": "promotion",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "threat_score": 50.7,
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "domain",
+      "label": "megastreams-hd.live",
+      "metadata": {
+        "tld": ".live",
+        "registrar": "NameCheap"
+      },
+      "first_seen": "2026-04-17T15:33:16.095175+00:00",
+      "last_seen": "2026-04-18T03:33:16.095179+00:00",
+      "lifecycle_stage": "promotion",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "threat_score": 58.6,
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "domain",
+      "label": "megastreams-new.site",
+      "metadata": {
+        "tld": ".site",
+        "registrar": "NameCheap"
+      },
+      "first_seen": "2026-04-20T03:33:16.095184+00:00",
+      "last_seen": "2026-04-20T13:33:16.095188+00:00",
+      "lifecycle_stage": "active",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "threat_score": 78.8,
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "invite_link",
+      "label": "https://t.me/megastreams_official",
+      "metadata": {
+        "url": "https://t.me/megastreams_official",
+        "platform": "telegram"
+      },
+      "first_seen": "2026-04-12T07:33:16.095311+00:00",
+      "last_seen": "2026-04-20T14:33:16.095318+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "f6e20b53-88aa-4385-bda3-7a34bcc0beae",
+      "threat_score": 63.7,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "invite_link",
+      "label": "https://discord.gg/megastreams",
+      "metadata": {
+        "url": "https://discord.gg/megastreams",
+        "platform": "discord"
+      },
+      "first_seen": "2026-04-16T11:33:16.095331+00:00",
+      "last_seen": "2026-04-20T13:33:16.095336+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "06927a50-5fdc-4b0c-88dd-dbdc4cb12f08",
+      "threat_score": 56.4,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "telegram_channel",
+      "label": "@megastreams_official",
+      "metadata": {
+        "channel_name": "@megastreams_official",
+        "subscribers": 67000
+      },
+      "first_seen": "2026-04-08T03:33:16.095349+00:00",
+      "last_seen": "2026-04-20T14:33:16.095355+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "910c757c-96f0-42c6-acb5-43998e3384bf",
+      "threat_score": 66.7,
+      "lifecycle_stage": "setup",
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "twitter_account",
+      "label": "@sportsfan_uk",
+      "metadata": {
+        "handle": "@sportsfan_uk",
+        "followers": 340
+      },
+      "first_seen": "2026-04-18T15:33:16.095544+00:00",
+      "last_seen": "2026-04-20T03:33:16.095549+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "c8ab6931-fe6c-4a6d-98dd-343bc7e1cc0e",
+      "threat_score": 48.0,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "invite_link",
+      "label": "https://t.me/freematch_group",
+      "metadata": {
+        "url": "https://t.me/freematch_group",
+        "platform": "telegram"
+      },
+      "first_seen": "2026-04-18T23:33:16.095573+00:00",
+      "last_seen": "2026-04-20T05:33:16.095578+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "f393909d-ef7f-4b0c-8063-287b7070746a",
+      "threat_score": 52.0,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "twitter_account",
+      "label": "@watchfootball_hd",
+      "metadata": {
+        "handle": "@watchfootball_hd",
+        "followers": 210
+      },
+      "first_seen": "2026-04-18T15:33:16.095620+00:00",
+      "last_seen": "2026-04-20T03:33:16.095625+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "8c9dde13-67e5-44ca-bcd6-ff676e3808ab",
+      "threat_score": 48.0,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "invite_link",
+      "label": "https://discord.gg/soccerfree",
+      "metadata": {
+        "url": "https://discord.gg/soccerfree",
+        "platform": "discord"
+      },
+      "first_seen": "2026-04-18T23:33:16.095646+00:00",
+      "last_seen": "2026-04-20T05:33:16.095652+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "44fe9f36-644a-47d9-a32f-67eda24808e0",
+      "threat_score": 52.0,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "twitter_account",
+      "label": "@freematch_tv",
+      "metadata": {
+        "handle": "@freematch_tv",
+        "followers": 180
+      },
+      "first_seen": "2026-04-18T15:33:16.095696+00:00",
+      "last_seen": "2026-04-20T03:33:16.095702+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "c9669bf2-9d89-443b-a1f4-f7b09bafa746",
+      "threat_score": 48.0,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "invite_link",
+      "label": "https://t.me/hdmatches_open",
+      "metadata": {
+        "url": "https://t.me/hdmatches_open",
+        "platform": "telegram"
+      },
+      "first_seen": "2026-04-18T23:33:16.095714+00:00",
+      "last_seen": "2026-04-20T05:33:16.095852+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "6e3b92cf-2179-4a8e-ac1b-69ab476da3b4",
+      "threat_score": 65.4,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "twitter_account",
+      "label": "@livegoals_xyz",
+      "metadata": {
+        "handle": "@livegoals_xyz",
+        "followers": 420
+      },
+      "first_seen": "2026-04-18T15:33:16.095759+00:00",
+      "last_seen": "2026-04-20T03:33:16.095765+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "b4a89dde-8150-469b-b786-c16edfaae149",
+      "threat_score": 48.0,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "twitter_account",
+      "label": "@hdmatch_stream",
+      "metadata": {
+        "handle": "@hdmatch_stream",
+        "followers": 90
+      },
+      "first_seen": "2026-04-18T15:33:16.095829+00:00",
+      "last_seen": "2026-04-20T03:33:16.095834+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "43b2e8ff-96bb-49a4-9632-c112c95ac885",
+      "threat_score": 48.0,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "domain",
+      "label": "crickethd-live.buzz",
+      "metadata": {
+        "tld": ".buzz"
+      },
+      "lifecycle_stage": "setup",
+      "first_seen": "2026-04-20T09:33:16.095895+00:00",
+      "last_seen": "2026-04-20T09:33:16.095900+00:00",
+      "source": "certstream",
+      "is_real_data": true,
+      "id": "e93008a6-2610-49af-8f7b-9214189e36ab",
+      "threat_score": 56.5,
+      "cluster_id": null
+    },
+    {
+      "type": "domain",
+      "label": "boxingstream-hd.icu",
+      "metadata": {
+        "tld": ".icu"
+      },
+      "lifecycle_stage": "setup",
+      "first_seen": "2026-04-20T09:33:16.095913+00:00",
+      "last_seen": "2026-04-20T09:33:16.095918+00:00",
+      "source": "certstream",
+      "is_real_data": true,
+      "id": "4c11c46a-164e-4d59-9f6f-08c88bbf9855",
+      "threat_score": 56.5,
+      "cluster_id": "cluster_1"
+    },
+    {
+      "type": "domain",
+      "label": "nbafree-hd.fun",
+      "metadata": {
+        "tld": ".fun"
+      },
+      "lifecycle_stage": "setup",
+      "first_seen": "2026-04-20T09:33:16.095931+00:00",
+      "last_seen": "2026-04-20T09:33:16.095936+00:00",
+      "source": "certstream",
+      "is_real_data": true,
+      "id": "32d06286-3a9f-4c05-a377-172907c60bb0",
+      "threat_score": 56.5,
+      "cluster_id": null
+    },
+    {
+      "type": "domain",
+      "label": "ufclive-free.xyz",
+      "metadata": {
+        "tld": ".xyz"
+      },
+      "lifecycle_stage": "setup",
+      "first_seen": "2026-04-20T09:33:16.095948+00:00",
+      "last_seen": "2026-04-20T09:33:16.095953+00:00",
+      "source": "certstream",
+      "is_real_data": true,
+      "id": "a004a7fb-6f72-4582-8645-59554b00905d",
+      "threat_score": 56.5,
+      "cluster_id": null
+    },
+    {
+      "type": "reddit_account",
+      "label": "u/stream_hunter99",
+      "metadata": {
+        "username": "u/stream_hunter99",
+        "karma": 120
+      },
+      "first_seen": "2026-04-19T15:33:16.095966+00:00",
+      "last_seen": "2026-04-20T07:33:16.095970+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "dfc3af4a-de21-4933-9853-dcc51d3a929b",
+      "threat_score": 40.4,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "reddit_account",
+      "label": "u/freelink_poster",
+      "metadata": {
+        "username": "u/freelink_poster",
+        "karma": 45
+      },
+      "first_seen": "2026-04-19T15:33:16.095984+00:00",
+      "last_seen": "2026-04-20T07:33:16.095989+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "d4c339d3-d910-41b0-89e0-84b6fd00e053",
+      "threat_score": 40.4,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    },
+    {
+      "type": "reddit_account",
+      "label": "u/sportlinks_daily",
+      "metadata": {
+        "username": "u/sportlinks_daily",
+        "karma": 280
+      },
+      "first_seen": "2026-04-19T15:33:16.096005+00:00",
+      "last_seen": "2026-04-20T07:33:16.096010+00:00",
+      "source": "synthetic",
+      "is_real_data": false,
+      "id": "2a2e1c05-1143-4a71-b11b-ce1acddaa83e",
+      "threat_score": 40.4,
+      "lifecycle_stage": "setup",
+      "cluster_id": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "aa1ba498-a145-4648-8fa6-b504ea2cdc1e",
+      "target": "77e78d0d-313c-45ff-ac15-89e55c11f86b",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T15:33:16.093882+00:00",
+      "id": "e083c351-bf55-4896-8c52-d1646f11a6a7",
+      "metadata": {}
+    },
+    {
+      "source": "89bf86b4-e47a-400b-b8dc-29c97b951b3f",
+      "target": "77e78d0d-313c-45ff-ac15-89e55c11f86b",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T15:33:16.093904+00:00",
+      "id": "95813c1d-a41e-4990-8ce2-6227bb0e7a8a",
+      "metadata": {}
+    },
+    {
+      "source": "b58697b2-5236-4c10-b30e-f809c49ee19f",
+      "target": "77e78d0d-313c-45ff-ac15-89e55c11f86b",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T15:33:16.093923+00:00",
+      "id": "d58b504d-ded8-47a3-aef8-72e069d622f2",
+      "metadata": {}
+    },
+    {
+      "source": "237c9b38-6548-47ee-82b5-cee169349671",
+      "target": "06e5c400-2fcb-4eb3-8c52-666b7610fb9b",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T19:33:16.093940+00:00",
+      "id": "d049f0a6-07e3-46d3-9dc5-0328fe494f89",
+      "metadata": {}
+    },
+    {
+      "source": "a650eb69-4eba-4c7c-be9e-03ac97d16789",
+      "target": "06e5c400-2fcb-4eb3-8c52-666b7610fb9b",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T19:33:16.093955+00:00",
+      "id": "15f3a65a-b60a-4acd-8ca4-f1f7bc8cca7b",
+      "metadata": {}
+    },
+    {
+      "source": "b58697b2-5236-4c10-b30e-f809c49ee19f",
+      "target": "0ac0dc0b-726f-4a58-a8da-f08ef9a0dbbe",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T21:33:16.093968+00:00",
+      "id": "d82f3944-0561-4d48-91df-b05509587739",
+      "metadata": {}
+    },
+    {
+      "source": "77e78d0d-313c-45ff-ac15-89e55c11f86b",
+      "target": "2ef965a2-db01-48a8-b575-443ada7e140d",
+      "relationship": "links_to",
+      "timestamp": "2026-04-19T16:33:16.093982+00:00",
+      "id": "2465ed56-476c-4e13-a600-f03245f4de8a",
+      "metadata": {}
+    },
+    {
+      "source": "0ac0dc0b-726f-4a58-a8da-f08ef9a0dbbe",
+      "target": "59c71c53-b348-41ed-93cc-4953bb81ea1a",
+      "relationship": "links_to",
+      "timestamp": "2026-04-19T20:33:16.093995+00:00",
+      "id": "c843a9e7-4b1e-416d-ba89-9f483da6a361",
+      "metadata": {}
+    },
+    {
+      "source": "2ef965a2-db01-48a8-b575-443ada7e140d",
+      "target": "39632c85-00b4-498e-8407-be734f4d6270",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T17:33:16.094009+00:00",
+      "id": "9965e687-ab08-4ce5-92f4-989ec2a88c25",
+      "metadata": {}
+    },
+    {
+      "source": "2ef965a2-db01-48a8-b575-443ada7e140d",
+      "target": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T17:33:16.094025+00:00",
+      "id": "66f4b509-8133-48b7-8446-f5e77161907d",
+      "metadata": {}
+    },
+    {
+      "source": "59c71c53-b348-41ed-93cc-4953bb81ea1a",
+      "target": "39632c85-00b4-498e-8407-be734f4d6270",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T17:33:16.094039+00:00",
+      "id": "c214a8ed-253e-4ddf-a762-cc9945ffc50a",
+      "metadata": {}
+    },
+    {
+      "source": "59c71c53-b348-41ed-93cc-4953bb81ea1a",
+      "target": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T17:33:16.094054+00:00",
+      "id": "506c7b79-2466-48de-b96b-dcad59abe193",
+      "metadata": {}
+    },
+    {
+      "source": "6235971f-d9a2-46d9-bcbd-8ec39600f9b9",
+      "target": "39632c85-00b4-498e-8407-be734f4d6270",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T17:33:16.094068+00:00",
+      "id": "47ce16d3-0ca0-4e7c-ab48-8f65e3d19799",
+      "metadata": {}
+    },
+    {
+      "source": "6235971f-d9a2-46d9-bcbd-8ec39600f9b9",
+      "target": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T17:33:16.094081+00:00",
+      "id": "628d3f68-d76d-4d8f-bf43-1a3e9e8a163b",
+      "metadata": {}
+    },
+    {
+      "source": "aa1ba498-a145-4648-8fa6-b504ea2cdc1e",
+      "target": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T19:33:16.094096+00:00",
+      "id": "d223a3b9-fd8e-4ebb-bbb6-eb0e9d776be0",
+      "metadata": {}
+    },
+    {
+      "source": "89bf86b4-e47a-400b-b8dc-29c97b951b3f",
+      "target": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T19:33:16.094112+00:00",
+      "id": "6e5c2739-dd04-4c21-9e24-906ec3e81b91",
+      "metadata": {}
+    },
+    {
+      "source": "a650eb69-4eba-4c7c-be9e-03ac97d16789",
+      "target": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T19:33:16.094126+00:00",
+      "id": "fd644fdc-8aa4-4423-8c99-2ce0fcefbb0c",
+      "metadata": {}
+    },
+    {
+      "source": "237c9b38-6548-47ee-82b5-cee169349671",
+      "target": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "relationship": "promotes",
+      "timestamp": "2026-04-20T00:33:16.094141+00:00",
+      "id": "d3be99e2-a9d0-4af2-a3d8-a35ae952e87b",
+      "metadata": {}
+    },
+    {
+      "source": "bc1500f2-4918-4a33-bbdf-7f698b05864c",
+      "target": "77e78d0d-313c-45ff-ac15-89e55c11f86b",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T23:33:16.094156+00:00",
+      "id": "35200dd4-e5e0-41e4-afbb-e32d7f81541c",
+      "metadata": {}
+    },
+    {
+      "source": "548c9e35-a65d-4d63-be10-a301da25f2bd",
+      "target": "77e78d0d-313c-45ff-ac15-89e55c11f86b",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T23:33:16.094175+00:00",
+      "id": "9bbba22d-38f9-4aed-9b44-de64a49bae69",
+      "metadata": {}
+    },
+    {
+      "source": "c1b80149-1565-41de-90cc-6c1643afeb89",
+      "target": "0ac0dc0b-726f-4a58-a8da-f08ef9a0dbbe",
+      "relationship": "posted",
+      "timestamp": "2026-04-20T01:33:16.094192+00:00",
+      "id": "2483f8cb-f612-4583-8a03-df62a12acc97",
+      "metadata": {}
+    },
+    {
+      "source": "42bb27ba-ff90-4c89-9409-ca59241839af",
+      "target": "0ac0dc0b-726f-4a58-a8da-f08ef9a0dbbe",
+      "relationship": "posted",
+      "timestamp": "2026-04-20T01:33:16.094207+00:00",
+      "id": "400bbb24-f511-4032-ac3d-ff534981f49a",
+      "metadata": {}
+    },
+    {
+      "source": "39632c85-00b4-498e-8407-be734f4d6270",
+      "target": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "relationship": "same_operator",
+      "timestamp": "2026-04-20T15:33:16.112776+00:00",
+      "id": "e189162f-9984-477c-91c1-dfdcdcec3dce",
+      "metadata": {}
+    },
+    {
+      "source": "39632c85-00b4-498e-8407-be734f4d6270",
+      "target": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "relationship": "same_operator",
+      "timestamp": "2026-04-17T17:33:16.094242+00:00",
+      "id": "b4bb9d51-142f-4091-a2af-74f3187cf9c7",
+      "metadata": {}
+    },
+    {
+      "source": "39632c85-00b4-498e-8407-be734f4d6270",
+      "target": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "relationship": "same_operator",
+      "timestamp": "2026-04-17T17:33:16.094262+00:00",
+      "id": "2387e8b1-96c8-4894-bb9e-fda80a05a5d9",
+      "metadata": {}
+    },
+    {
+      "source": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "target": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "relationship": "same_operator",
+      "timestamp": "2026-04-17T17:33:16.094278+00:00",
+      "id": "95a108b0-f273-4886-9701-9d34325abeff",
+      "metadata": {}
+    },
+    {
+      "source": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "target": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "relationship": "same_operator",
+      "timestamp": "2026-04-17T17:33:16.094294+00:00",
+      "id": "72a67827-f431-4db2-b6ae-7ae546a3406a",
+      "metadata": {}
+    },
+    {
+      "source": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "target": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "relationship": "same_operator",
+      "timestamp": "2026-04-17T17:33:16.094311+00:00",
+      "id": "4ad32911-367f-4e8b-b42e-344401cf592c",
+      "metadata": {}
+    },
+    {
+      "source": "0e1b7380-003c-4a15-834f-426e8ea04d6c",
+      "target": "03ad8667-e6fb-4bdd-b8e4-d67162e7cebd",
+      "relationship": "cross_posts",
+      "timestamp": "2026-04-18T15:33:16.094632+00:00",
+      "id": "8d725b3f-6347-4156-a3fc-988012f7a3cb",
+      "metadata": {}
+    },
+    {
+      "source": "0e1b7380-003c-4a15-834f-426e8ea04d6c",
+      "target": "6196ed4b-fffe-4dbd-88e3-668a5dd33291",
+      "relationship": "cross_posts",
+      "timestamp": "2026-04-18T15:33:16.094652+00:00",
+      "id": "1a0efb10-213b-4373-ab71-1b55ad87425d",
+      "metadata": {}
+    },
+    {
+      "source": "03ad8667-e6fb-4bdd-b8e4-d67162e7cebd",
+      "target": "6196ed4b-fffe-4dbd-88e3-668a5dd33291",
+      "relationship": "cross_posts",
+      "timestamp": "2026-04-18T15:33:16.094674+00:00",
+      "id": "35f23ca6-c606-4f38-abb4-34cab29afb7c",
+      "metadata": {}
+    },
+    {
+      "source": "03ad8667-e6fb-4bdd-b8e4-d67162e7cebd",
+      "target": "0181a78d-36a2-428e-8773-83423af02178",
+      "relationship": "cross_posts",
+      "timestamp": "2026-04-18T15:33:16.094693+00:00",
+      "id": "5ac09583-45da-4564-ae5e-663713ac6f24",
+      "metadata": {}
+    },
+    {
+      "source": "6196ed4b-fffe-4dbd-88e3-668a5dd33291",
+      "target": "0181a78d-36a2-428e-8773-83423af02178",
+      "relationship": "cross_posts",
+      "timestamp": "2026-04-18T15:33:16.094713+00:00",
+      "id": "179196d6-96a2-433b-b532-d37960a74b90",
+      "metadata": {}
+    },
+    {
+      "source": "6196ed4b-fffe-4dbd-88e3-668a5dd33291",
+      "target": "f5dd7058-706a-409a-8a8a-4158c5910dc3",
+      "relationship": "cross_posts",
+      "timestamp": "2026-04-18T15:33:16.094731+00:00",
+      "id": "dd745bbe-a14b-40ee-ac6a-bd31ab1d4af8",
+      "metadata": {}
+    },
+    {
+      "source": "0181a78d-36a2-428e-8773-83423af02178",
+      "target": "f5dd7058-706a-409a-8a8a-4158c5910dc3",
+      "relationship": "cross_posts",
+      "timestamp": "2026-04-18T15:33:16.094751+00:00",
+      "id": "ecd86081-97dd-4ac0-b617-341257c908d4",
+      "metadata": {}
+    },
+    {
+      "source": "0181a78d-36a2-428e-8773-83423af02178",
+      "target": "2563ff8e-ddca-4f96-9002-a3bae5ef5bf4",
+      "relationship": "cross_posts",
+      "timestamp": "2026-04-18T15:33:16.094770+00:00",
+      "id": "079597b8-2d2a-49a2-9be9-f05bec745d79",
+      "metadata": {}
+    },
+    {
+      "source": "f5dd7058-706a-409a-8a8a-4158c5910dc3",
+      "target": "2563ff8e-ddca-4f96-9002-a3bae5ef5bf4",
+      "relationship": "cross_posts",
+      "timestamp": "2026-04-18T15:33:16.094790+00:00",
+      "id": "a8450e76-9bea-48b4-a659-2edb249a1d54",
+      "metadata": {}
+    },
+    {
+      "source": "0e1b7380-003c-4a15-834f-426e8ea04d6c",
+      "target": "3b15267b-8e1a-41f3-9467-6dad6511410b",
+      "relationship": "promotes",
+      "timestamp": "2026-04-18T23:33:16.094815+00:00",
+      "id": "bc36c026-0b5c-45e2-a573-c9a5b61173ab",
+      "metadata": {}
+    },
+    {
+      "source": "03ad8667-e6fb-4bdd-b8e4-d67162e7cebd",
+      "target": "3b15267b-8e1a-41f3-9467-6dad6511410b",
+      "relationship": "promotes",
+      "timestamp": "2026-04-18T23:33:16.094839+00:00",
+      "id": "61301432-b913-4d25-947d-538b7632af97",
+      "metadata": {}
+    },
+    {
+      "source": "6196ed4b-fffe-4dbd-88e3-668a5dd33291",
+      "target": "3b15267b-8e1a-41f3-9467-6dad6511410b",
+      "relationship": "promotes",
+      "timestamp": "2026-04-18T23:33:16.094860+00:00",
+      "id": "b8504680-c6c7-41a6-bbd0-a1e4bcc911c4",
+      "metadata": {}
+    },
+    {
+      "source": "0181a78d-36a2-428e-8773-83423af02178",
+      "target": "6d2020e7-03db-4d1e-93f5-d0abe7f27780",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T04:33:16.094881+00:00",
+      "id": "17262b23-1f8d-45b5-9b19-b538a458b467",
+      "metadata": {}
+    },
+    {
+      "source": "f5dd7058-706a-409a-8a8a-4158c5910dc3",
+      "target": "6d2020e7-03db-4d1e-93f5-d0abe7f27780",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T04:33:16.094901+00:00",
+      "id": "5419534e-08b3-4029-a524-74fb921840d4",
+      "metadata": {}
+    },
+    {
+      "source": "2563ff8e-ddca-4f96-9002-a3bae5ef5bf4",
+      "target": "6d2020e7-03db-4d1e-93f5-d0abe7f27780",
+      "relationship": "promotes",
+      "timestamp": "2026-04-19T04:33:16.094948+00:00",
+      "id": "25fab7a3-a230-493b-a92d-88af06aefd67",
+      "metadata": {}
+    },
+    {
+      "source": "69ab2a47-e8de-4fb2-b5d8-09c4f6e645fc",
+      "target": "89fc6b1c-c357-4a2c-96e9-b4a5a527430e",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T09:33:16.094975+00:00",
+      "id": "ccea8a23-a808-4118-9844-d049ac29f381",
+      "metadata": {}
+    },
+    {
+      "source": "f030477c-9958-4cb1-b121-d880915557eb",
+      "target": "7727ba1f-1e8b-4d57-aa14-c58b1238fd9b",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T09:33:16.094996+00:00",
+      "id": "c27f5023-0aec-4003-9457-96e9dcaf769c",
+      "metadata": {}
+    },
+    {
+      "source": "644a37a9-fa1c-4459-8450-44f2d3c97cce",
+      "target": "95a118b5-ff24-41ab-888d-7345e3aa45ed",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T09:33:16.095017+00:00",
+      "id": "f759c5a3-8d3a-413d-a1c7-d87fad02e2fa",
+      "metadata": {}
+    },
+    {
+      "source": "89fc6b1c-c357-4a2c-96e9-b4a5a527430e",
+      "target": "0e1b7380-003c-4a15-834f-426e8ea04d6c",
+      "relationship": "links_to",
+      "timestamp": "2026-04-19T10:33:16.095040+00:00",
+      "id": "ab254a11-d8c4-403f-9b6f-769bfac82704",
+      "metadata": {}
+    },
+    {
+      "source": "7727ba1f-1e8b-4d57-aa14-c58b1238fd9b",
+      "target": "03ad8667-e6fb-4bdd-b8e4-d67162e7cebd",
+      "relationship": "links_to",
+      "timestamp": "2026-04-19T10:33:16.095063+00:00",
+      "id": "ba18ab7e-327b-44a2-905f-62d485aa8d08",
+      "metadata": {}
+    },
+    {
+      "source": "95a118b5-ff24-41ab-888d-7345e3aa45ed",
+      "target": "6196ed4b-fffe-4dbd-88e3-668a5dd33291",
+      "relationship": "links_to",
+      "timestamp": "2026-04-19T10:33:16.095083+00:00",
+      "id": "e4b93cf9-f48a-45fd-902f-93b2e31e233b",
+      "metadata": {}
+    },
+    {
+      "source": "3b15267b-8e1a-41f3-9467-6dad6511410b",
+      "target": "6d2020e7-03db-4d1e-93f5-d0abe7f27780",
+      "relationship": "same_operator",
+      "timestamp": "2026-04-16T21:33:16.095105+00:00",
+      "id": "58d32446-2091-4a49-ba14-71163ee99eb1",
+      "metadata": {}
+    },
+    {
+      "source": "00f2f4f0-ba15-4aec-b1bb-3d92f34a0b21",
+      "target": "e0ec5ccd-bf96-4ee4-8042-afa57599d49d",
+      "relationship": "promotes",
+      "timestamp": "2026-04-08T15:33:16.095150+00:00",
+      "id": "2ed87185-3976-49b1-92fd-ede469a2efdc",
+      "metadata": {}
+    },
+    {
+      "source": "00f2f4f0-ba15-4aec-b1bb-3d92f34a0b21",
+      "target": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "relationship": "promotes",
+      "timestamp": "2026-04-12T15:33:16.095164+00:00",
+      "id": "a7b591e6-a84e-4c5b-9851-ed246ef22817",
+      "metadata": {}
+    },
+    {
+      "source": "00f2f4f0-ba15-4aec-b1bb-3d92f34a0b21",
+      "target": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "relationship": "promotes",
+      "timestamp": "2026-04-17T15:33:16.095175+00:00",
+      "id": "3cf5d266-3a31-4993-9384-5a9fc74481b3",
+      "metadata": {}
+    },
+    {
+      "source": "00f2f4f0-ba15-4aec-b1bb-3d92f34a0b21",
+      "target": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "relationship": "promotes",
+      "timestamp": "2026-04-20T03:33:16.095184+00:00",
+      "id": "051e6222-e58e-43ef-9468-fd507b1fa9ec",
+      "metadata": {}
+    },
+    {
+      "source": "00f2f4f0-ba15-4aec-b1bb-3d92f34a0b21",
+      "target": "f6e20b53-88aa-4385-bda3-7a34bcc0beae",
+      "relationship": "posted",
+      "timestamp": "2026-04-18T13:33:16.095367+00:00",
+      "id": "62cf98e8-394b-4069-aeff-d1b62c426e86",
+      "metadata": {}
+    },
+    {
+      "source": "00f2f4f0-ba15-4aec-b1bb-3d92f34a0b21",
+      "target": "06927a50-5fdc-4b0c-88dd-dbdc4cb12f08",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T09:33:16.095391+00:00",
+      "id": "db7339f3-3f66-4ab4-8c5d-cbb1c7553b54",
+      "metadata": {}
+    },
+    {
+      "source": "f6e20b53-88aa-4385-bda3-7a34bcc0beae",
+      "target": "910c757c-96f0-42c6-acb5-43998e3384bf",
+      "relationship": "links_to",
+      "timestamp": "2026-04-18T14:33:16.095414+00:00",
+      "id": "692955bb-8edd-4410-ab53-fa0b24b13ebf",
+      "metadata": {}
+    },
+    {
+      "source": "910c757c-96f0-42c6-acb5-43998e3384bf",
+      "target": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "relationship": "promotes",
+      "timestamp": "2026-04-20T05:33:16.095440+00:00",
+      "id": "de3e81d8-0487-432f-876e-c9c1c11b7fe2",
+      "metadata": {}
+    },
+    {
+      "source": "e0ec5ccd-bf96-4ee4-8042-afa57599d49d",
+      "target": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "relationship": "same_operator",
+      "timestamp": "2026-04-20T15:33:16.112659+00:00",
+      "id": "ab5a05b4-4941-4977-8708-d5d0ad44ea07",
+      "metadata": {}
+    },
+    {
+      "source": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "target": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "relationship": "same_operator",
+      "timestamp": "2026-04-18T03:33:16.095493+00:00",
+      "id": "8ed001c2-d5a5-44d9-8d7d-b57858a22ccc",
+      "metadata": {}
+    },
+    {
+      "source": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "target": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "relationship": "same_operator",
+      "timestamp": "2026-04-20T15:33:16.112245+00:00",
+      "id": "570daa51-b928-453b-a3e8-5c25dc6cd485",
+      "metadata": {}
+    },
+    {
+      "source": "c8ab6931-fe6c-4a6d-98dd-343bc7e1cc0e",
+      "target": "f393909d-ef7f-4b0c-8063-287b7070746a",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T19:33:16.095592+00:00",
+      "id": "63475566-c1de-427b-b3b9-f319d0bacaba",
+      "metadata": {}
+    },
+    {
+      "source": "8c9dde13-67e5-44ca-bcd6-ff676e3808ab",
+      "target": "44fe9f36-644a-47d9-a32f-67eda24808e0",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T19:33:16.095669+00:00",
+      "id": "5a60454a-93b6-44df-92cf-11b9dedb3d0e",
+      "metadata": {}
+    },
+    {
+      "source": "c9669bf2-9d89-443b-a1f4-f7b09bafa746",
+      "target": "6e3b92cf-2179-4a8e-ac1b-69ab476da3b4",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T19:33:16.095734+00:00",
+      "id": "69f1eda0-b5b0-47df-8fe2-c21d00cbfe11",
+      "metadata": {}
+    },
+    {
+      "source": "b4a89dde-8150-469b-b786-c16edfaae149",
+      "target": "6e3b92cf-2179-4a8e-ac1b-69ab476da3b4",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T19:33:16.095802+00:00",
+      "id": "8864d63b-950b-4c99-b33d-b8892093279a",
+      "metadata": {}
+    },
+    {
+      "source": "43b2e8ff-96bb-49a4-9632-c112c95ac885",
+      "target": "6e3b92cf-2179-4a8e-ac1b-69ab476da3b4",
+      "relationship": "posted",
+      "timestamp": "2026-04-19T19:33:16.095868+00:00",
+      "id": "40902c69-d5b1-4a1d-a5db-1a6e66992be2",
+      "metadata": {}
+    },
+    {
+      "source": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "target": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "relationship": "same_operator",
+      "id": "2e88984f-1f4e-492e-a09b-d2c650ae0b6e",
+      "timestamp": "2026-04-20T15:33:16.111736+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "target": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "relationship": "same_operator",
+      "id": "088e7dd5-9d3e-492e-b8d7-0155f9ed1ca7",
+      "timestamp": "2026-04-20T15:33:16.111808+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "target": "4c11c46a-164e-4d59-9f6f-08c88bbf9855",
+      "relationship": "same_operator",
+      "id": "135eb434-2ca3-4427-af89-bd0ef57db0fb",
+      "timestamp": "2026-04-20T15:33:16.111840+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "target": "e0ec5ccd-bf96-4ee4-8042-afa57599d49d",
+      "relationship": "same_operator",
+      "id": "a23df31d-4f06-414a-8076-fb5d27c9e375",
+      "timestamp": "2026-04-20T15:33:16.111868+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "target": "39632c85-00b4-498e-8407-be734f4d6270",
+      "relationship": "same_operator",
+      "id": "e8d2e922-2049-4864-b2e5-98a9ecfd53b6",
+      "timestamp": "2026-04-20T15:33:16.111896+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "target": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "relationship": "same_operator",
+      "id": "0e9a9fc4-2115-4a3d-a1de-fedc611708b8",
+      "timestamp": "2026-04-20T15:33:16.111927+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "target": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "relationship": "same_operator",
+      "id": "7c6f40b1-5cdd-4599-8003-a5e08da1c267",
+      "timestamp": "2026-04-20T15:33:16.111974+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "52c6edfa-937b-4433-9250-0f8b5e977964",
+      "target": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "relationship": "same_operator",
+      "id": "671476ae-4d06-4ac5-ba25-0dfc11657e76",
+      "timestamp": "2026-04-20T15:33:16.112001+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "target": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "relationship": "same_operator",
+      "id": "8bb133b1-c801-41b0-b0d3-64a893d0042f",
+      "timestamp": "2026-04-20T15:33:16.112032+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "target": "4c11c46a-164e-4d59-9f6f-08c88bbf9855",
+      "relationship": "same_operator",
+      "id": "3b1dcb05-fc72-49cf-849f-24dc90d3992d",
+      "timestamp": "2026-04-20T15:33:16.112061+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "target": "e0ec5ccd-bf96-4ee4-8042-afa57599d49d",
+      "relationship": "same_operator",
+      "id": "b4aa4056-a051-4b13-9c56-9e025783a578",
+      "timestamp": "2026-04-20T15:33:16.112130+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "target": "39632c85-00b4-498e-8407-be734f4d6270",
+      "relationship": "same_operator",
+      "id": "a5f1a084-aca3-44a7-b22a-c844c1811e25",
+      "timestamp": "2026-04-20T15:33:16.112165+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "target": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "relationship": "same_operator",
+      "id": "bccbaece-86b9-4c93-853c-37188246aa5f",
+      "timestamp": "2026-04-20T15:33:16.112194+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "d1e6d3d1-bfad-4479-b93c-ad0fd59aa33b",
+      "target": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "relationship": "same_operator",
+      "id": "513e3ecc-2752-455f-8d76-838d71fa5322",
+      "timestamp": "2026-04-20T15:33:16.112224+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "target": "4c11c46a-164e-4d59-9f6f-08c88bbf9855",
+      "relationship": "same_operator",
+      "id": "e0fcb77b-aa13-42c5-81a3-8b4f5a762612",
+      "timestamp": "2026-04-20T15:33:16.112280+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "target": "e0ec5ccd-bf96-4ee4-8042-afa57599d49d",
+      "relationship": "same_operator",
+      "id": "53f34fb4-2a78-4440-b869-cf99d872b3a2",
+      "timestamp": "2026-04-20T15:33:16.112310+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "target": "39632c85-00b4-498e-8407-be734f4d6270",
+      "relationship": "same_operator",
+      "id": "cd16370d-4dbf-4c1f-bc14-b18fd23bff19",
+      "timestamp": "2026-04-20T15:33:16.112339+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "target": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "relationship": "same_operator",
+      "id": "83f690b3-8748-4f6a-8353-6ba54f6aa736",
+      "timestamp": "2026-04-20T15:33:16.112369+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "target": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "relationship": "same_operator",
+      "id": "2898ec2e-97fc-4cb0-8c62-c055c5f9064d",
+      "timestamp": "2026-04-20T15:33:16.112398+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "376c4947-19b3-4959-a649-52ab9bfbe70f",
+      "target": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "relationship": "same_operator",
+      "id": "c68fe96a-1533-4774-938b-18eefd058370",
+      "timestamp": "2026-04-20T15:33:16.112428+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "4c11c46a-164e-4d59-9f6f-08c88bbf9855",
+      "target": "e0ec5ccd-bf96-4ee4-8042-afa57599d49d",
+      "relationship": "same_operator",
+      "id": "842d32bf-7f4d-444a-b3ed-38431034ad49",
+      "timestamp": "2026-04-20T15:33:16.112463+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "4c11c46a-164e-4d59-9f6f-08c88bbf9855",
+      "target": "39632c85-00b4-498e-8407-be734f4d6270",
+      "relationship": "same_operator",
+      "id": "3347f809-5099-4e86-9246-543972d937a0",
+      "timestamp": "2026-04-20T15:33:16.112497+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "4c11c46a-164e-4d59-9f6f-08c88bbf9855",
+      "target": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "relationship": "same_operator",
+      "id": "ad35c677-2711-47ea-9edb-019238ec6696",
+      "timestamp": "2026-04-20T15:33:16.112531+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "4c11c46a-164e-4d59-9f6f-08c88bbf9855",
+      "target": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "relationship": "same_operator",
+      "id": "649d42c2-e888-4f68-b0ee-8d40eea4c7ec",
+      "timestamp": "2026-04-20T15:33:16.112565+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "4c11c46a-164e-4d59-9f6f-08c88bbf9855",
+      "target": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "relationship": "same_operator",
+      "id": "c8db2075-4600-4d32-89d1-749c9f6b86e9",
+      "timestamp": "2026-04-20T15:33:16.112598+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "e0ec5ccd-bf96-4ee4-8042-afa57599d49d",
+      "target": "39632c85-00b4-498e-8407-be734f4d6270",
+      "relationship": "same_operator",
+      "id": "ac4eb1ed-d51e-429a-b2f3-231505f7f930",
+      "timestamp": "2026-04-20T15:33:16.112632+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "e0ec5ccd-bf96-4ee4-8042-afa57599d49d",
+      "target": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "relationship": "same_operator",
+      "id": "510951e5-c185-453f-87d8-440bd2667f8f",
+      "timestamp": "2026-04-20T15:33:16.112694+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "e0ec5ccd-bf96-4ee4-8042-afa57599d49d",
+      "target": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "relationship": "same_operator",
+      "id": "5adea5e6-dcb7-458a-b219-1ac82a68972c",
+      "timestamp": "2026-04-20T15:33:16.112729+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "39632c85-00b4-498e-8407-be734f4d6270",
+      "target": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "relationship": "same_operator",
+      "id": "5fae143c-c666-4615-a1ea-c80667ebd38a",
+      "timestamp": "2026-04-20T15:33:16.112765+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "39632c85-00b4-498e-8407-be734f4d6270",
+      "target": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "relationship": "same_operator",
+      "id": "633f276c-d79f-44ec-ad6b-46e0a7dde8dd",
+      "timestamp": "2026-04-20T15:33:16.112812+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "target": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "relationship": "same_operator",
+      "id": "4201226a-9560-42ff-872d-c0f99c0b6705",
+      "timestamp": "2026-04-20T15:33:16.112848+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "74e2ee09-3669-4ce2-ab0f-6a61a12b4d05",
+      "target": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "relationship": "same_operator",
+      "id": "329025ef-1405-4323-af57-6e0fd84d1fa3",
+      "timestamp": "2026-04-20T15:33:16.112884+00:00",
+      "metadata": {}
+    },
+    {
+      "source": "d78a4a93-2063-4d01-873a-9f261f0cfdcf",
+      "target": "44697c52-d238-4d82-adc4-c2fa621287d3",
+      "relationship": "same_operator",
+      "id": "7b0a35f7-d4f4-473c-8a20-2693782beb77",
+      "timestamp": "2026-04-20T15:33:16.112920+00:00",
+      "metadata": {}
+    }
+  ]
+}

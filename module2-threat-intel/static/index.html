@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>War Room — Piracy Intelligence · SPORTS101</title>
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&family=Azeret+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ══ RESET ══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --void:    #030508;
+  --base:    #070B14;
+  --surface: #0B1222;
+  --raised:  #101A2E;
+  --hi:      #162238;
+  --b0:      #142030;
+  --b1:      #1C3048;
+  --b2:      #284468;
+
+  --fire:    #FF2244;
+  --fire-s:  rgba(255,34,68,.10);
+  --fire-d:  rgba(255,34,68,.05);
+  --fire-g:  rgba(255,34,68,.30);
+
+  --amber:   #FFAB00;
+  --amber-s: rgba(255,171,0,.10);
+
+  --frost:   #00BFFF;
+  --frost-s: rgba(0,191,255,.10);
+
+  --chain:   #00F5A0;
+  --pulse:   #A855F7;
+
+  --vm: #00E676;
+  --vw: #FFAB00;
+  --vn: #FF1744;
+
+  --t1: #CBD8E4;
+  --t2: #527288;
+  --t3: #263848;
+
+  --fd: 'Chakra Petch', sans-serif;
+  --fm: 'Azeret Mono', monospace;
+}
+
+html, body { height: 100%; overflow: hidden; }
+
+body {
+  background: var(--void);
+  background-image: radial-gradient(var(--b0) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--t1);
+  font-family: var(--fd);
+  display: flex;
+  flex-direction: column;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ══ TOPBAR ══════════════════════════════════════════════════════ */
+.topbar {
+  flex-shrink: 0;
+  height: 38px;
+  background: var(--base);
+  border-bottom: 1px solid var(--b0);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 0 20px;
+  gap: 16px;
+  font-family: var(--fm);
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--t3);
+  text-transform: uppercase;
+  user-select: none;
+  position: relative;
+  z-index: 200;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+}
+
+.brand-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--fire);
+  box-shadow: 0 0 8px var(--fire);
+  animation: ldot 2.4s ease-in-out infinite;
+}
+@keyframes ldot {
+  0%,100% { opacity:1; box-shadow:0 0 8px var(--fire); }
+  50%      { opacity:.4; box-shadow:0 0 3px var(--fire); }
+}
+
+.brand-name { color: var(--t1); font-size: 11px; font-weight: 600; letter-spacing: .18em; }
+.brand-sep  { color: var(--b2); }
+.brand-mod  { color: var(--fire); letter-spacing: .14em; }
+
+.topbar-pills {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.apill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border: 1px solid var(--b1);
+  border-radius: 2px;
+  font-family: var(--fm);
+  font-size: 8px;
+  letter-spacing: .09em;
+  color: var(--t3);
+  transition: all .3s;
+  white-space: nowrap;
+}
+.apill-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--b2);
+  flex-shrink: 0;
+  transition: all .4s;
+}
+.apill.on         .apill-dot { background: var(--vm); box-shadow: 0 0 5px var(--vm); }
+.apill.on         { color: var(--t2); }
+.apill.on-fire    { color: var(--fire); border-color: rgba(255,34,68,.3); background: var(--fire-d); }
+.apill.on-fire    .apill-dot { background: var(--fire); box-shadow: 0 0 5px var(--fire); }
+.apill.on-yt      { color: var(--vn); border-color: rgba(255,23,68,.3); }
+.apill.on-yt      .apill-dot { background: var(--vn); box-shadow: 0 0 5px var(--vn); }
+.apill.on-gem     { color: var(--frost); border-color: rgba(0,191,255,.25); }
+.apill.on-gem     .apill-dot { background: var(--frost); box-shadow: 0 0 5px var(--frost); }
+.apill-count { font-weight: 600; font-size: 10px; }
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.tl-box {
+  padding: 4px 12px;
+  font-family: var(--fd);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  border: 1px solid;
+  transition: all .5s;
+}
+.tl-LOW     { color: var(--vm);    border-color: rgba(0,230,118,.3);   background: rgba(0,230,118,.05); }
+.tl-MEDIUM  { color: var(--amber); border-color: rgba(255,171,0,.3);   background: rgba(255,171,0,.05); }
+.tl-HIGH    { color: var(--vn);    border-color: rgba(255,23,68,.4);   background: rgba(255,23,68,.07); animation: tpulse 2s infinite; }
+.tl-CRITICAL{ color: var(--fire);  border-color: var(--fire);          background: var(--fire-d); animation: tpulse .8s infinite; }
+.tl-UNKNOWN { color: var(--t3);    border-color: var(--b1); }
+@keyframes tpulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,34,68,.4); }
+  50%     { box-shadow: 0 0 0 5px rgba(255,34,68,0); }
+}
+
+.ws-pill {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 8px; letter-spacing: .10em;
+}
+.ws-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--vn); }
+.ws-dot.on { background: var(--vm); box-shadow: 0 0 5px var(--vm); }
+
+/* ══ MAIN GRID ═══════════════════════════════════════════════════ */
+.main-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 255px 1fr 305px;
+  min-height: 0;
+  border-top: 1px solid var(--b0);
+}
+
+/* ══ SHARED PANEL ════════════════════════════════════════════════ */
+.panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  border-right: 1px solid var(--b0);
+  background: var(--surface);
+  position: relative;
+}
+.panel-last { border-right: none; }
+
+.panel::before, .panel::after {
+  content: ''; position: absolute;
+  width: 12px; height: 12px;
+  border-color: var(--b1); border-style: solid;
+  z-index: 5; pointer-events: none;
+}
+.panel::before { top: 0; left: 0;     border-width: 1px 0 0 1px; }
+.panel::after  { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+.phead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--b0);
+  flex-shrink: 0;
+  background: var(--base);
+}
+.phead-label {
+  font-family: var(--fd);
+  font-size: 9px; font-weight: 600;
+  letter-spacing: .18em;
+  color: var(--fire);
+  text-transform: uppercase;
+}
+.phead-count {
+  margin-left: auto;
+  font-family: var(--fm);
+  font-size: 9px; color: var(--t3);
+  background: var(--raised);
+  border: 1px solid var(--b0);
+  padding: 1px 7px;
+  letter-spacing: .08em;
+}
+
+/* ══ LEFT — CERT FEED ════════════════════════════════════════════ */
+.cs-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--b0);
+  flex-shrink: 0;
+}
+.cs-stat {
+  background: var(--base);
+  padding: 9px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cs-num {
+  font-family: var(--fm);
+  font-size: 20px; font-weight: 600;
+  line-height: 1;
+  color: var(--t2);
+}
+.cs-num.hi   { color: var(--fire); }
+.cs-num.warn { color: var(--amber); }
+.cs-num.ok   { color: var(--vm); }
+.cs-lbl {
+  font-family: var(--fm);
+  font-size: 8px; letter-spacing: .10em;
+  color: var(--t3); text-transform: uppercase;
+}
+
+.feed-scroll { flex: 1; overflow-y: auto; min-height: 0; }
+.feed-scroll::-webkit-scrollbar { width: 2px; }
+.feed-scroll::-webkit-scrollbar-track { background: var(--void); }
+.feed-scroll::-webkit-scrollbar-thumb { background: var(--b1); }
+
+.fi {
+  padding: 6px 12px 5px;
+  border-bottom: 1px solid rgba(20,32,48,.8);
+  position: relative; cursor: default;
+  transition: background .1s;
+}
+.fi:hover { background: rgba(255,34,68,.03); }
+.fi.flagged  { border-left: 2px solid rgba(255,171,0,.5); padding-left: 10px; }
+.fi.confirmed{ border-left: 2px solid var(--fire); padding-left: 10px; background: rgba(255,34,68,.05); }
+@keyframes fi-flash {
+  0%   { background: rgba(255,34,68,.2); }
+  100% { background: rgba(255,34,68,.05); }
+}
+.fi.confirmed { animation: fi-flash .8s ease-out; }
+
+.fi-domain {
+  font-family: var(--fm);
+  font-size: 10px; color: var(--t1);
+  overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; margin-bottom: 3px;
+  letter-spacing: .02em;
+}
+.fi-domain.flagged { color: var(--amber); }
+.fi-domain.threat  { color: var(--fire); }
+
+.fi-row { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+
+.chip {
+  font-family: var(--fm);
+  font-size: 8px; padding: 1px 5px;
+  border: 1px solid; letter-spacing: .06em;
+}
+.chip-base   { color: var(--t3);   border-color: var(--b1); }
+.chip-med    { color: var(--amber); border-color: rgba(255,171,0,.3); background: rgba(255,171,0,.06); }
+.chip-hi     { color: var(--fire);  border-color: rgba(255,34,68,.4);  background: rgba(255,34,68,.07); }
+.chip-threat { color: var(--vn);    border-color: var(--vn); background: rgba(255,23,68,.12); font-weight: 600; }
+.chip-clean  { color: var(--vm);    border-color: rgba(0,230,118,.3); }
+.chip-check  { color: var(--frost); border-color: rgba(0,191,255,.3); }
+
+.fi-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 2px; }
+.fi-tag {
+  font-family: var(--fm);
+  font-size: 7px; color: var(--t3);
+  background: rgba(255,34,68,.04);
+  padding: 0 4px; letter-spacing: .06em;
+}
+
+/* ══ CENTER — GRAPH ══════════════════════════════════════════════ */
+.graph-wrap {
+  position: relative;
+  background: var(--void);
+  background-image: radial-gradient(var(--b0) 1px, transparent 1px);
+  background-size: 28px 28px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid var(--b0);
+}
+
+#graph-canvas { flex: 1; width: 100%; min-height: 0; }
+
+.graph-hud {
+  position: absolute;
+  top: 10px; left: 10px; right: 10px;
+  display: flex; gap: 6px;
+  pointer-events: none;
+}
+.hud-box {
+  flex: 1;
+  background: rgba(7,11,20,.92);
+  border: 1px solid var(--b0);
+  padding: 6px 10px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+.hud-n {
+  font-family: var(--fm);
+  font-size: 18px; font-weight: 600;
+  color: var(--t2);
+  display: block; line-height: 1;
+}
+.hud-n.hi { color: var(--fire); }
+.hud-l {
+  font-family: var(--fm);
+  font-size: 7px; letter-spacing: .12em;
+  color: var(--t3); text-transform: uppercase;
+  display: block; margin-top: 3px;
+}
+
+#node-card {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(180deg,transparent 0%,rgba(3,5,8,.96) 20%);
+  padding: 36px 16px 14px;
+  display: none; flex-direction: column; gap: 8px;
+}
+#node-card.show { display: flex; }
+
+.nc-label {
+  font-family: var(--fd);
+  font-size: 13px; font-weight: 600;
+  letter-spacing: .08em; color: var(--fire);
+}
+.nc-bar-wrap { height: 2px; background: var(--b1); overflow: hidden; }
+.nc-bar-fill { height: 100%; background: var(--fire); transition: width .6s ease; }
+
+.nc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
+.nc-item .k {
+  font-family: var(--fm); font-size: 7px;
+  color: var(--t3); text-transform: uppercase; letter-spacing: .12em;
+}
+.nc-item .v { font-family: var(--fm); font-size: 10px; color: var(--t1); margin-top: 2px; }
+
+#btn-profile {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--b2);
+  color: var(--frost);
+  font-family: var(--fm);
+  font-size: 9px; letter-spacing: .12em;
+  padding: 5px 14px; cursor: pointer;
+  transition: all .2s; text-transform: uppercase;
+}
+#btn-profile:hover { border-color: var(--frost); background: var(--frost-s); }
+
+/* ══ RIGHT — INTEL ═══════════════════════════════════════════════ */
+.tab-bar {
+  display: flex;
+  border-bottom: 1px solid var(--b0);
+  flex-shrink: 0;
+  background: var(--base);
+}
+.tab {
+  flex: 1; padding: 8px 4px;
+  text-align: center;
+  font-family: var(--fm);
+  font-size: 8px; letter-spacing: .12em;
+  color: var(--t3); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .2s; text-transform: uppercase;
+}
+.tab:hover { color: var(--t2); }
+.tab.on { color: var(--fire); border-bottom-color: var(--fire); }
+
+.tab-pane { display: none; flex: 1; min-height: 0; overflow-y: auto; flex-direction: column; }
+.tab-pane.on { display: flex; }
+.tab-pane::-webkit-scrollbar { width: 2px; }
+.tab-pane::-webkit-scrollbar-thumb { background: var(--b1); }
+
+/* — BRIEFING — */
+#tab-brief { padding: 12px; gap: 10px; }
+
+.brief-top {
+  display: flex; align-items: center;
+  justify-content: space-between; flex-shrink: 0;
+}
+.brief-engine {
+  font-family: var(--fm);
+  font-size: 8px; color: var(--t3);
+  letter-spacing: .07em;
+  border: 1px solid var(--b0);
+  padding: 2px 7px; background: var(--raised);
+}
+.brief-engine .e-gem  { color: var(--frost); }
+.brief-engine .e-olla { color: var(--amber); }
+
+.btn-regen {
+  background: transparent;
+  border: 1px solid var(--b1); color: var(--t3);
+  font-family: var(--fm); font-size: 8px;
+  letter-spacing: .10em; padding: 4px 10px;
+  cursor: pointer; transition: all .2s; text-transform: uppercase;
+}
+.btn-regen:hover { border-color: var(--frost); color: var(--frost); }
+.btn-regen:disabled { opacity: .3; cursor: not-allowed; }
+
+.lv-banner {
+  padding: 10px; text-align: center;
+  font-family: var(--fd); font-size: 18px;
+  font-weight: 700; letter-spacing: .24em;
+  border: 1px solid; position: relative;
+}
+.lv-banner::before { content: '◆'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 6px; opacity: .4; }
+.lv-banner::after  { content: '◆'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 6px; opacity: .4; }
+
+.lv-LOW     { color: var(--vm);    border-color: rgba(0,230,118,.25);  background: rgba(0,230,118,.05); }
+.lv-MEDIUM  { color: var(--amber); border-color: rgba(255,171,0,.25);  background: rgba(255,171,0,.05); }
+.lv-HIGH    { color: var(--vn);    border-color: rgba(255,23,68,.35);  background: rgba(255,23,68,.07); }
+.lv-CRITICAL{ color: var(--fire);  border-color: var(--fire); background: var(--fire-d); animation: tpulse 1s infinite; }
+.lv-UNKNOWN { color: var(--t3);    border-color: var(--b1); }
+
+.sec-label {
+  font-family: var(--fm);
+  font-size: 8px; letter-spacing: .18em;
+  color: var(--t3); text-transform: uppercase;
+  border-left: 2px solid var(--b2);
+  padding-left: 6px; margin-bottom: 5px;
+}
+.sec-body {
+  font-family: var(--fm);
+  font-size: 11px; line-height: 1.7;
+  color: var(--t1);
+  background: rgba(255,255,255,.02);
+  padding: 8px 10px;
+  border-left: 1px solid var(--b1);
+}
+
+.threat-list, .action-list { list-style: none; }
+.threat-list li {
+  font-family: var(--fm); font-size: 9px;
+  color: rgba(255,120,120,.9);
+  padding: 3px 0 3px 14px;
+  border-bottom: 1px solid rgba(20,32,48,.6);
+  position: relative; letter-spacing: .02em; line-height: 1.5;
+}
+.threat-list li::before { content: '!'; position: absolute; left: 0; color: var(--fire); font-weight: 700; }
+.action-list li {
+  font-family: var(--fm); font-size: 10px; color: var(--t1);
+  padding: 4px 0 4px 14px;
+  border-bottom: 1px solid rgba(20,32,48,.4);
+  position: relative; line-height: 1.5;
+}
+.action-list li::before { content: '→'; position: absolute; left: 0; color: var(--vm); }
+
+.sport-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.sport-chip {
+  font-family: var(--fm); font-size: 8px;
+  padding: 2px 7px;
+  border: 1px solid rgba(255,34,68,.2);
+  color: var(--fire); background: var(--fire-d);
+  letter-spacing: .06em;
+}
+.brief-ts {
+  font-family: var(--fm); font-size: 8px;
+  color: var(--t3); text-align: right; letter-spacing: .06em;
+}
+
+/* — PROFILE — */
+#tab-profile { padding: 12px; gap: 10px; }
+.profile-ph {
+  font-family: var(--fm); font-size: 10px;
+  color: var(--t3); text-align: center;
+  margin-top: 50px; line-height: 2; letter-spacing: .06em;
+}
+#profile-out {
+  font-family: var(--fm); font-size: 11px;
+  line-height: 1.8; color: var(--t1);
+  background: rgba(255,255,255,.02);
+  padding: 12px;
+  border-left: 2px solid var(--frost);
+  white-space: pre-wrap; display: none;
+}
+
+/* — YOUTUBE — */
+#tab-yt { padding: 6px; gap: 5px; }
+.yt-card {
+  border: 1px solid var(--b1);
+  background: var(--base);
+  overflow: hidden;
+  transition: border-color .2s; flex-shrink: 0;
+}
+.yt-card:hover { border-color: rgba(255,34,68,.4); }
+.yt-thumb-wrap {
+  position: relative; height: 72px;
+  overflow: hidden; background: var(--void);
+}
+.yt-thumb { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .8; }
+.yt-risk {
+  position: absolute; top: 5px; right: 5px;
+  font-family: var(--fm); font-size: 8px;
+  padding: 1px 6px; letter-spacing: .08em;
+}
+.rsk-0           { background: rgba(20,32,48,.8); color: var(--t3); border: 1px solid var(--b1); }
+.rsk-1, .rsk-2   { background: rgba(255,171,0,.12); color: var(--amber); border: 1px solid rgba(255,171,0,.3); }
+.rsk-3, .rsk-4, .rsk-5 { background: rgba(255,34,68,.15); color: var(--fire); border: 1px solid rgba(255,34,68,.4); }
+.yt-info { padding: 7px 9px; }
+.yt-title {
+  font-family: var(--fd); font-size: 10px; color: var(--t1);
+  overflow: hidden; display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  line-height: 1.4; margin-bottom: 4px;
+}
+.yt-ch {
+  font-family: var(--fm); font-size: 8px; color: var(--t3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  margin-bottom: 5px; letter-spacing: .04em;
+}
+.yt-links { display: flex; gap: 8px; }
+.yt-link {
+  font-family: var(--fm); font-size: 8px; color: var(--fire);
+  text-decoration: none; letter-spacing: .06em;
+  border-bottom: 1px solid rgba(255,34,68,.3);
+  transition: color .2s;
+}
+.yt-link:hover { color: rgba(255,100,130,.9); }
+
+/* — LOG — */
+#tab-log { padding: 0; }
+.log-row {
+  padding: 4px 12px;
+  border-bottom: 1px solid rgba(20,32,48,.5);
+  display: grid;
+  grid-template-columns: 50px 44px 1fr;
+  gap: 6px;
+  font-family: var(--fm); font-size: 8px;
+  align-items: start;
+}
+.log-ts  { color: var(--t3); letter-spacing: .04em; }
+.log-cat { font-weight: 600; letter-spacing: .06em; }
+.log-cat.threat { color: var(--fire); }
+.log-cat.sb     { color: var(--vm); }
+.log-cat.yt     { color: var(--vn); }
+.log-cat.gem    { color: var(--frost); }
+.log-cat.info   { color: var(--t3); }
+.log-msg { color: var(--t2); word-break: break-all; line-height: 1.5; }
+
+/* ══ STATUSBAR ═══════════════════════════════════════════════════ */
+.statusbar {
+  flex-shrink: 0; height: 22px;
+  background: var(--base);
+  border-top: 1px solid var(--b0);
+  display: flex; align-items: center;
+  padding: 0 14px; gap: 14px;
+  font-family: var(--fm); font-size: 8px;
+  color: var(--t3); letter-spacing: .08em; text-transform: uppercase;
+}
+.sb-item { display: flex; align-items: center; gap: 4px; }
+.sb-dot  { width: 4px; height: 4px; border-radius: 50%; background: var(--b2); }
+.sb-dot.on  { background: var(--vm); box-shadow: 0 0 4px var(--vm); }
+.sb-dot.err { background: var(--vn); }
+.sb-dot.stb { background: var(--frost); }
+#sb-ws { margin-left: auto; }
+
+/* ══ MISC ════════════════════════════════════════════════════════ */
+.spin {
+  display: inline-block;
+  width: 9px; height: 9px;
+  border: 1px solid rgba(255,34,68,.2);
+  border-top-color: var(--fire);
+  border-radius: 50%;
+  animation: _spin .7s linear infinite;
+  vertical-align: middle; margin-right: 4px;
+}
+@keyframes _spin { to { transform: rotate(360deg); } }
+
+.loading-txt {
+  font-family: var(--fm); font-size: 10px;
+  color: var(--t3); text-align: center;
+  margin: 30px auto; letter-spacing: .06em;
+}
+</style>
+</head>
+<body>
+
+<!-- ══ TOPBAR ══ -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="brand-dot"></div>
+    <span class="brand-name">SPORTS101</span>
+    <span class="brand-sep">·</span>
+    <span class="brand-mod">WAR ROOM</span>
+    <span class="brand-sep">·</span>
+    <span style="color:var(--t3);letter-spacing:.10em;">PIRACY INTEL</span>
+  </div>
+
+  <div class="topbar-pills">
+    <div class="apill" id="apib-cert">
+      <div class="apill-dot"></div>
+      CERTSTREAM
+      <span class="apill-count" id="ac-cert">0</span>
+    </div>
+    <div class="apill" id="apib-sb">
+      <div class="apill-dot"></div>
+      SAFE BROWSE
+      <span class="apill-count" id="ac-sb">0</span>
+    </div>
+    <div class="apill" id="apib-yt">
+      <div class="apill-dot"></div>
+      YOUTUBE
+      <span class="apill-count" id="ac-yt">0</span>
+    </div>
+    <div class="apill" id="apib-gem">
+      <div class="apill-dot"></div>
+      <span class="e-gem">GEMINI</span>&nbsp;·&nbsp;<span class="e-olla" style="color:var(--amber)">OLLAMA</span>
+      <span class="apill-count" id="ac-gem">0</span>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="tl-box tl-UNKNOWN" id="tl-box">THREAT: UNKNOWN</div>
+    <div class="ws-pill">
+      <div class="ws-dot" id="sbd-ws-top"></div>
+      <span id="ws-txt-top">WS</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div class="main-grid">
+
+  <!-- LEFT: CERT FEED -->
+  <div class="panel">
+    <div class="phead">
+      <div class="phead-label">Cert Feed</div>
+      <div class="phead-count" id="feed-badge">0</div>
+    </div>
+    <div class="cs-stats">
+      <div class="cs-stat"><span class="cs-num"     id="cs-seen">0</span><span class="cs-lbl">Certs Seen</span></div>
+      <div class="cs-stat"><span class="cs-num hi"  id="cs-flagged">0</span><span class="cs-lbl">Flagged</span></div>
+      <div class="cs-stat"><span class="cs-num warn" id="cs-scored">0</span><span class="cs-lbl">Scored</span></div>
+      <div class="cs-stat"><span class="cs-num ok"  id="cs-sb-hits">0</span><span class="cs-lbl">SB Confirmed</span></div>
+    </div>
+    <div class="feed-scroll" id="feed-scroll"></div>
+  </div>
+
+  <!-- CENTER: GRAPH -->
+  <div class="graph-wrap">
+    <div id="graph-canvas"></div>
+
+    <div class="graph-hud">
+      <div class="hud-box"><span class="hud-n"    id="hud-nodes">0</span><span class="hud-l">Nodes</span></div>
+      <div class="hud-box"><span class="hud-n"    id="hud-edges">0</span><span class="hud-l">Edges</span></div>
+      <div class="hud-box"><span class="hud-n"    id="hud-clusters">0</span><span class="hud-l">Clusters</span></div>
+      <div class="hud-box"><span class="hud-n hi" id="hud-threats">0</span><span class="hud-l">Threats</span></div>
+    </div>
+
+    <div id="node-card">
+      <div class="nc-label" id="nc-name">—</div>
+      <div class="nc-bar-wrap"><div class="nc-bar-fill" id="nc-bar" style="width:0%"></div></div>
+      <div class="nc-grid">
+        <div class="nc-item"><div class="k">TYPE</div><div class="v" id="nc-type">—</div></div>
+        <div class="nc-item"><div class="k">SCORE</div><div class="v" id="nc-score">—</div></div>
+        <div class="nc-item"><div class="k">STAGE</div><div class="v" id="nc-stage">—</div></div>
+        <div class="nc-item"><div class="k">CLUSTER</div><div class="v" id="nc-cluster">—</div></div>
+        <div class="nc-item"><div class="k">SB STATUS</div><div class="v" id="nc-sb">—</div></div>
+        <div class="nc-item"><div class="k">CONFIRMED</div><div class="v" id="nc-gconf">—</div></div>
+      </div>
+      <button id="btn-profile">◁ GEMINI PROFILE</button>
+    </div>
+  </div>
+
+  <!-- RIGHT: INTEL -->
+  <div class="panel panel-last">
+    <div class="phead">
+      <div class="phead-label">Intel</div>
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab on" data-tab="brief">AI Brief</div>
+      <div class="tab"    data-tab="profile">Profile</div>
+      <div class="tab"    data-tab="yt">YouTube</div>
+      <div class="tab"    data-tab="log">Log</div>
+    </div>
+
+    <!-- BRIEFING -->
+    <div class="tab-pane on" id="tab-brief">
+      <div class="brief-top">
+        <div class="brief-engine">
+          <span class="e-gem">Gemini 2.0 Flash</span>&nbsp;·&nbsp;<span class="e-olla">Ollama llama3.1:8b</span>
+        </div>
+        <button class="btn-regen" id="btn-regen">↻ REGEN</button>
+      </div>
+
+      <div id="brief-loading" class="loading-txt"><span class="spin"></span>Calling Gemini 2.0 Flash...</div>
+
+      <div id="brief-body" style="display:none;flex-direction:column;gap:10px;">
+        <div class="lv-banner lv-UNKNOWN" id="lv-el">UNKNOWN</div>
+
+        <div>
+          <div class="sec-label">Executive Summary</div>
+          <div class="sec-body" id="b-summary">—</div>
+        </div>
+        <div>
+          <div class="sec-label">Top Threats</div>
+          <ul class="threat-list" id="b-threats"></ul>
+        </div>
+        <div>
+          <div class="sec-label">Cluster Analysis</div>
+          <div class="sec-body" id="b-clusters" style="border-left-color:var(--amber)">—</div>
+        </div>
+        <div>
+          <div class="sec-label">Recommended Actions</div>
+          <ul class="action-list" id="b-actions"></ul>
+        </div>
+        <div>
+          <div class="sec-label">Sports at Risk</div>
+          <div class="sport-chips" id="b-sports"></div>
+        </div>
+        <div class="brief-ts" id="b-ts"></div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="tab-pane" id="tab-profile">
+      <div class="profile-ph" id="profile-ph">SELECT NODE IN GRAPH<br>THEN PRESS GEMINI PROFILE</div>
+      <div id="profile-out"></div>
+    </div>
+
+    <!-- YOUTUBE -->
+    <div class="tab-pane" id="tab-yt">
+      <div class="loading-txt" id="yt-ph"><span class="spin"></span>Scanning YouTube...</div>
+      <div id="yt-cards"></div>
+    </div>
+
+    <!-- LOG -->
+    <div class="tab-pane" id="tab-log">
+      <div id="log-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STATUSBAR ══ -->
+<div class="statusbar">
+  <div class="sb-item"><div class="sb-dot on" id="sbd-cert"></div><span>CertStream</span></div>
+  <div class="sb-item"><div class="sb-dot"    id="sbd-sb"></div><span>Safe Browsing</span></div>
+  <div class="sb-item"><div class="sb-dot"    id="sbd-yt"></div><span>YouTube</span></div>
+  <div class="sb-item"><div class="sb-dot"    id="sbd-gem"></div><span>Gemini · Ollama</span></div>
+  <div class="sb-item" id="sb-ws"><div class="sb-dot err" id="sbd-ws"></div><span id="ws-txt">Connecting...</span></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// GRAPH
+// ═══════════════════════════════════════════
+let network = null;
+const GN = new vis.DataSet();
+const GE = new vis.DataSet();
+let selectedNodeId = null;
+
+function initGraph() {
+  network = new vis.Network(
+    document.getElementById('graph-canvas'),
+    { nodes: GN, edges: GE },
+    {
+      nodes: {
+        shape: 'dot', size: 10,
+        font: { color: '#CBD8E4', size: 10, face: 'Azeret Mono' },
+        borderWidth: 1,
+        shadow: { enabled: true, size: 6, x: 0, y: 0 },
+      },
+      edges: {
+        width: 1,
+        color: { color: '#142030', highlight: '#FF2244', opacity: 0.7 },
+        smooth: { type: 'dynamic' },
+        arrows: { to: { enabled: true, scaleFactor: 0.4 } },
+      },
+      physics: {
+        stabilization: { iterations: 80 },
+        barnesHut: { gravitationalConstant: -5000, springLength: 120, damping: 0.25 },
+      },
+      interaction: { hover: true, tooltipDelay: 200, hideEdgesOnDrag: true },
+      background: { enabled: false },
+    }
+  );
+  network.on('selectNode', e => { if (e.nodes.length) onSelectNode(e.nodes[0]); });
+  network.on('deselectNode', () => {
+    document.getElementById('node-card').classList.remove('show');
+    selectedNodeId = null;
+  });
+}
+
+function nodeColor(n) {
+  if ((n.metadata||{}).google_confirmed) return '#FF2244';
+  const s = n.threat_score || 0;
+  if (s >= 80) return '#FF2244';
+  if (s >= 50) return '#FFAB00';
+  if (s >= 20) return '#527288';
+  const tc = { youtube_channel:'#FF1744', telegram_channel:'#2ca5e0', twitter_account:'#1da1f2', reddit_account:'#FF4500', invite_link:'#A855F7' };
+  return tc[n.type] || '#1C3048';
+}
+
+function upsertNode(n) {
+  const c = nodeColor(n);
+  const sz = 5 + Math.min((n.threat_score||0) / 10, 12);
+  GN.update({
+    id: n.id,
+    label: (n.label||n.id).substring(0, 18),
+    color: { background: c, border: c, highlight: { background: '#CBD8E4', border: c } },
+    size: sz,
+    title: (n.type||'') + ' | ' + (n.threat_score||0).toFixed(0) + ' | ' + (n.lifecycle_stage||''),
+  });
+}
+
+async function loadGraph() {
+  try {
+    const d = await (await fetch('/api/graph')).json();
+    (d.nodes||[]).forEach(upsertNode);
+    (d.edges||[]).forEach(e => GE.update({ id: e.id||(e.source+'-'+e.target), from: e.source, to: e.target }));
+    document.getElementById('hud-nodes').textContent = (d.nodes||[]).length;
+    document.getElementById('hud-edges').textContent = (d.edges||[]).length;
+    log('info', 'Graph loaded: ' + (d.nodes||[]).length + ' nodes');
+  } catch(e) { log('info', 'Graph load error: ' + e); }
+}
+
+function onSelectNode(id) {
+  selectedNodeId = id;
+  document.getElementById('node-card').classList.add('show');
+  fetch('/api/node/' + encodeURIComponent(id)).then(r=>r.json()).then(d => {
+    const n = d.node; if (!n) return;
+    const meta = n.metadata || {};
+    document.getElementById('nc-name').textContent    = n.label || id;
+    document.getElementById('nc-type').textContent    = n.type || '—';
+    document.getElementById('nc-score').textContent   = (n.threat_score||0).toFixed(0) + '/100';
+    document.getElementById('nc-stage').textContent   = n.lifecycle_stage || '—';
+    document.getElementById('nc-cluster').textContent = n.cluster_id || 'NONE';
+    document.getElementById('nc-sb').textContent      = meta.sb_status || (meta.google_confirmed ? 'CONFIRMED' : '—');
+    document.getElementById('nc-gconf').textContent   = meta.google_confirmed ? '✓ CONFIRMED' : '—';
+    document.getElementById('nc-bar').style.width     = Math.min(n.threat_score||0, 100) + '%';
+    const s = n.threat_score || 0;
+    document.getElementById('nc-bar').style.background = s >= 80 ? 'var(--fire)' : s >= 50 ? 'var(--amber)' : 'var(--t3)';
+  }).catch(()=>{});
+}
+
+// ═══════════════════════════════════════════
+// FEED
+// ═══════════════════════════════════════════
+let feedN = 0;
+function addFeed(item) {
+  feedN++;
+  document.getElementById('feed-badge').textContent = feedN;
+  const list = document.getElementById('feed-scroll');
+  const isThreat = item.sb_status === 'THREAT';
+  const flagged  = item.flagged;
+  const div = document.createElement('div');
+  div.className = 'fi' + (isThreat ? ' confirmed' : flagged ? ' flagged' : '');
+  const s = item.tier1_score || 0;
+  const scoreClass = s >= 6 ? 'chip-hi' : s >= 3 ? 'chip-med' : 'chip-base';
+  const sbMap = { THREAT:'chip-threat', clean:'chip-clean', checking:'chip-check' };
+  const sbCls = sbMap[item.sb_status] || '';
+  const sbTxt = { THREAT:'! THREAT', clean:'CLEAN', checking:'SB...' }[item.sb_status] || '';
+  const tags = (item.reasons||[]).slice(0,3).map(r => `<span class="fi-tag">${r}</span>`).join('');
+  const domCls = isThreat ? 'threat' : flagged ? 'flagged' : '';
+  div.innerHTML = `
+    <div class="fi-domain ${domCls}">${item.domain}</div>
+    <div class="fi-row">
+      <span class="chip ${scoreClass}">T${s}</span>
+      ${sbTxt ? `<span class="chip ${sbCls}">${sbTxt}</span>` : ''}
+    </div>
+    ${tags ? `<div class="fi-tags">${tags}</div>` : ''}
+  `;
+  list.insertBefore(div, list.firstChild);
+  while (list.children.length > 80) list.removeChild(list.lastChild);
+}
+
+// ═══════════════════════════════════════════
+// LOG
+// ═══════════════════════════════════════════
+function log(type, msg) {
+  const el = document.getElementById('log-list');
+  const ts = new Date().toLocaleTimeString('en', { hour12: false });
+  const labels = { threat:'THREAT', sb:'[SB]', yt:'[YT]', gem:'[GEM]', info:'INFO' };
+  const row = document.createElement('div');
+  row.className = 'log-row';
+  row.innerHTML = `<span class="log-ts">${ts}</span><span class="log-cat ${type}">${labels[type]||type}</span><span class="log-msg">${msg}</span>`;
+  el.insertBefore(row, el.firstChild);
+  while (el.children.length > 200) el.removeChild(el.lastChild);
+}
+
+// ═══════════════════════════════════════════
+// BRIEFING
+// ═══════════════════════════════════════════
+function renderBriefing(b) {
+  if (!b || !b.threat_level) return;
+  document.getElementById('brief-loading').style.display = 'none';
+  const body = document.getElementById('brief-body');
+  body.style.display = 'flex';
+  const lv = b.threat_level || 'UNKNOWN';
+  const lvEl = document.getElementById('lv-el');
+  lvEl.textContent = lv;
+  lvEl.className = 'lv-banner lv-' + lv;
+  const tlBox = document.getElementById('tl-box');
+  tlBox.textContent = 'THREAT: ' + lv;
+  tlBox.className = 'tl-box tl-' + lv;
+  document.getElementById('b-summary').textContent  = b.summary || '—';
+  document.getElementById('b-clusters').textContent = b.cluster_analysis || '—';
+  document.getElementById('b-threats').innerHTML    = (b.top_threats||[]).map(t=>`<li>${t}</li>`).join('');
+  document.getElementById('b-actions').innerHTML    = (b.recommended_actions||[]).map(a=>`<li>${a}</li>`).join('');
+  document.getElementById('b-sports').innerHTML     = (b.sports_at_risk||[]).map(s=>`<span class="sport-chip">${s}</span>`).join('');
+  if (b.timestamp) document.getElementById('b-ts').textContent = 'GEN: ' + new Date(b.timestamp).toLocaleTimeString();
+}
+
+async function doBriefing() {
+  const btn = document.getElementById('btn-regen');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span>';
+  document.getElementById('brief-loading').style.display = 'block';
+  document.getElementById('brief-loading').innerHTML = '<span class="spin"></span>Calling Gemini 2.0 Flash...';
+  document.getElementById('brief-body').style.display = 'none';
+  try {
+    const b = await (await fetch('/api/ai-briefing')).json();
+    if (b.error) throw new Error(b.error);
+    renderBriefing(b);
+    log('gem', 'Briefing: ' + b.threat_level);
+    document.getElementById('ac-gem').textContent = parseInt(document.getElementById('ac-gem').textContent||'0',10) + 1;
+    document.getElementById('apib-gem').classList.add('on-gem');
+    document.getElementById('sbd-gem').className = 'sb-dot on';
+  } catch(e) {
+    document.getElementById('brief-loading').textContent = 'Gemini error: ' + e.message;
+    log('gem', 'Briefing fail: ' + e.message);
+  }
+  btn.disabled = false;
+  btn.textContent = '↻ REGEN';
+}
+
+document.getElementById('btn-regen').addEventListener('click', doBriefing);
+
+// ═══════════════════════════════════════════
+// PROFILE
+// ═══════════════════════════════════════════
+document.getElementById('btn-profile').addEventListener('click', async () => {
+  if (!selectedNodeId) return;
+  switchTab('profile');
+  document.getElementById('profile-ph').innerHTML = '<span class="spin"></span>Generating...';
+  document.getElementById('profile-ph').style.display = 'block';
+  document.getElementById('profile-out').style.display = 'none';
+  try {
+    const d = await (await fetch('/api/operator-profile/' + encodeURIComponent(selectedNodeId))).json();
+    if (d.error) throw new Error(d.error);
+    document.getElementById('profile-ph').style.display = 'none';
+    document.getElementById('profile-out').textContent = d.profile;
+    document.getElementById('profile-out').style.display = 'block';
+    log('gem', 'Profile: ' + selectedNodeId);
+  } catch(e) {
+    document.getElementById('profile-ph').textContent = 'Error: ' + e.message;
+  }
+});
+
+// ═══════════════════════════════════════════
+// YOUTUBE
+// ═══════════════════════════════════════════
+function renderYT(channels) {
+  document.getElementById('yt-ph').style.display = 'none';
+  const cards = document.getElementById('yt-cards');
+  if (!channels || !channels.length) {
+    document.getElementById('yt-ph').textContent = 'No results yet.';
+    document.getElementById('yt-ph').style.display = 'block';
+    return;
+  }
+  cards.innerHTML = '';
+  channels.forEach(ch => {
+    const sc = Math.min(ch.suspicious_score||0, 5);
+    const div = document.createElement('div');
+    div.className = 'yt-card';
+    div.innerHTML = `
+      <div class="yt-thumb-wrap">
+        ${ch.thumbnail ? `<img class="yt-thumb" src="${ch.thumbnail}" loading="lazy" alt="" onerror="this.style.display='none'">` : ''}
+        <span class="yt-risk rsk-${sc}">RISK:${sc}</span>
+      </div>
+      <div class="yt-info">
+        <div class="yt-title">${(ch.title||'—').replace(/</g,'&lt;')}</div>
+        <div class="yt-ch">${(ch.channel||'').replace(/</g,'&lt;')}</div>
+        <div class="yt-links">
+          <a class="yt-link" href="${ch.url||'#'}" target="_blank" rel="noopener">▶ WATCH</a>
+          <a class="yt-link" href="${ch.channel_url||'#'}" target="_blank" rel="noopener">CHANNEL ↗</a>
+        </div>
+      </div>
+    `;
+    cards.appendChild(div);
+  });
+}
+
+// ═══════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === name));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('on', p.id === 'tab-' + name));
+}
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+
+// ═══════════════════════════════════════════
+// API PILLS UPDATE
+// ═══════════════════════════════════════════
+function updatePills(googleApis, certStats) {
+  if (certStats) {
+    document.getElementById('cs-seen').textContent    = certStats.certificates_seen || 0;
+    document.getElementById('cs-flagged').textContent = certStats.domains_flagged || 0;
+    document.getElementById('cs-scored').textContent  = certStats.domains_scored || 0;
+    document.getElementById('cs-sb-hits').textContent = certStats.sb_realtime_hits || 0;
+    document.getElementById('ac-cert').textContent    = certStats.certificates_seen || 0;
+    if ((certStats.certificates_seen||0) > 0) document.getElementById('apib-cert').classList.add('on');
+  }
+  if (!googleApis) return;
+  if (googleApis.safe_browsing) {
+    const c = googleApis.safe_browsing.checked || 0;
+    document.getElementById('ac-sb').textContent = c;
+    if (c > 0) { document.getElementById('apib-sb').classList.add('on-fire'); document.getElementById('sbd-sb').className = 'sb-dot on'; }
+  }
+  if (googleApis.youtube) {
+    const c = googleApis.youtube.channels_found || 0;
+    document.getElementById('ac-yt').textContent = c;
+    if (c > 0) { document.getElementById('apib-yt').classList.add('on-yt'); document.getElementById('sbd-yt').className = 'sb-dot on'; }
+  }
+  if (googleApis.gemini) {
+    document.getElementById('ac-gem').textContent = googleApis.gemini.briefings || 0;
+  }
+}
+
+// ═══════════════════════════════════════════
+// WEBSOCKET
+// ═══════════════════════════════════════════
+let ws = null, wsTimer = null;
+
+function connectWS() {
+  if (ws) { try { ws.close(); } catch(e){} }
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  ws = new WebSocket(proto + '://' + location.host + '/ws/live');
+
+  ws.onopen = () => {
+    document.getElementById('sbd-ws').className     = 'sb-dot on';
+    document.getElementById('ws-txt').textContent   = 'WS CONNECTED';
+    document.getElementById('sbd-ws-top').className = 'ws-dot on';
+    document.getElementById('ws-txt-top').textContent = 'LIVE';
+    log('info', 'WebSocket connected');
+    if (wsTimer) { clearTimeout(wsTimer); wsTimer = null; }
+  };
+
+  ws.onclose = () => {
+    document.getElementById('sbd-ws').className     = 'sb-dot err';
+    document.getElementById('ws-txt').textContent   = 'RECONNECTING...';
+    document.getElementById('sbd-ws-top').className = 'ws-dot';
+    document.getElementById('ws-txt-top').textContent = 'WS';
+    wsTimer = setTimeout(connectWS, 3000);
+  };
+
+  ws.onmessage = e => {
+    let msg; try { msg = JSON.parse(e.data); } catch { return; }
+    const { type, data } = msg;
+
+    if (type === 'init') {
+      if (data.stats) {
+        updatePills(data.stats.google_apis, data.stats.certstream);
+        document.getElementById('hud-clusters').textContent = data.stats.clusters || 0;
+        document.getElementById('hud-threats').textContent  = data.stats.flagged_today || 0;
+      }
+      if (data.briefing && data.briefing.threat_level) renderBriefing(data.briefing);
+      if (data.yt_channels && data.yt_channels.length) renderYT(data.yt_channels);
+      return;
+    }
+
+    if (type === 'feed_domain') { addFeed(data); return; }
+
+    if (type === 'new_threat') {
+      log('threat', (data.domain||data.label||data.id) + ' score:' + (data.threat_score||0).toFixed(0));
+      if (data.id) upsertNode(data);
+      return;
+    }
+
+    if (type === 'sb_realtime_hit') {
+      log('sb', 'CONFIRMED: ' + data.domain + ' | ' + (data.sb_threat_type||'THREAT'));
+      document.getElementById('cs-sb-hits').textContent = parseInt(document.getElementById('cs-sb-hits').textContent||'0',10) + 1;
+      const cur = parseInt(document.getElementById('ac-sb').textContent||'0',10);
+      document.getElementById('ac-sb').textContent = cur + 1;
+      document.getElementById('apib-sb').classList.add('on-fire');
+      document.getElementById('sbd-sb').className = 'sb-dot on';
+      return;
+    }
+
+    if (type === 'sb_sweep_complete') {
+      log('sb', 'Sweep: checked ' + data.checked + ', hits ' + data.confirmed);
+      (data.threats||[]).forEach(d => log('threat', 'SB: ' + d));
+      return;
+    }
+
+    if (type === 'briefing_updated') {
+      renderBriefing(data);
+      log('gem', 'Briefing: ' + data.threat_level);
+      const cur = parseInt(document.getElementById('ac-gem').textContent||'0',10);
+      document.getElementById('ac-gem').textContent = cur + 1;
+      document.getElementById('apib-gem').classList.add('on-gem');
+      document.getElementById('sbd-gem').className = 'sb-dot on';
+      return;
+    }
+
+    if (type === 'youtube_channels_updated') {
+      renderYT(data.channels || []);
+      log('yt', data.count + ' channels found');
+      document.getElementById('ac-yt').textContent = data.count;
+      document.getElementById('apib-yt').classList.add('on-yt');
+      document.getElementById('sbd-yt').className = 'sb-dot on';
+      return;
+    }
+
+    if (type === 'stats_update') {
+      updatePills(data.google_apis, data.certstream);
+      document.getElementById('hud-clusters').textContent = data.clusters || 0;
+      document.getElementById('hud-threats').textContent  = data.flagged_today || 0;
+      return;
+    }
+  };
+}
+
+// ═══════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════
+(async () => {
+  initGraph();
+  await loadGraph();
+  connectWS();
+  doBriefing();
+
+  fetch('/api/youtube-channels').then(r=>r.json()).then(d => {
+    if (d.channels && d.channels.length) renderYT(d.channels);
+  }).catch(()=>{});
+
+  fetch('/api/google-status').then(r=>r.json()).then(d => {
+    if (d.safe_browsing?.enabled) document.getElementById('sbd-sb').className = 'sb-dot stb';
+    if (d.youtube?.enabled)       document.getElementById('sbd-yt').className = 'sb-dot stb';
+    if (d.gemini?.enabled)        document.getElementById('sbd-gem').className = 'sb-dot stb';
+    log('info', 'APIs: SB=' + d.safe_browsing?.enabled + ' YT=' + d.youtube?.enabled + ' Gem=' + d.gemini?.enabled);
+  }).catch(()=>{});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signal Intercept — Sports Digital Asset Protection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&family=Azeret+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ══ RESET ══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --void:       #030508;
+  --base:       #070B14;
+  --surface:    #0B1222;
+  --raised:     #101A2E;
+  --hi:         #162238;
+
+  --b0:         #142030;
+  --b1:         #1C3048;
+  --b2:         #284468;
+
+  --amber:      #FF5500;
+  --amber-s:    rgba(255,85,0,.12);
+  --amber-g:    rgba(255,85,0,.35);
+
+  --frost:      #00BFFF;
+  --frost-s:    rgba(0,191,255,.10);
+  --frost-g:    rgba(0,191,255,.30);
+
+  --pulse:      #A855F7;
+  --pulse-s:    rgba(168,85,247,.10);
+  --pulse-g:    rgba(168,85,247,.28);
+
+  --chain:      #00F5A0;
+  --chain-s:    rgba(0,245,160,.10);
+  --chain-g:    rgba(0,245,160,.28);
+
+  --ruby:       #FF2D55;
+  --ruby-s:     rgba(255,45,85,.10);
+  --ruby-g:     rgba(255,45,85,.28);
+
+  --vm:  #00E676;  --vm-bg: rgba(0,230,118,.07);
+  --vw:  #FFAB00;  --vw-bg: rgba(255,171,0,.07);
+  --vn:  #FF1744;  --vn-bg: rgba(255,23,68,.07);
+
+  --t1: #CBD8E4;
+  --t2: #527288;
+  --t3: #263848;
+
+  --fd: 'Chakra Petch', sans-serif;
+  --fm: 'Azeret Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  background-image: radial-gradient(var(--b0) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--t1);
+  font-family: var(--fd);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* scanlines */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ══ TOPBAR ══════════════════════════════════════════════════════ */
+.topbar {
+  position: sticky; top: 0; z-index: 200;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 28px;
+  height: 38px;
+  background: var(--base);
+  border-bottom: 1px solid var(--b0);
+  font-family: var(--fm);
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--t3);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.topbar-right { text-align: right; }
+
+.topbar-mid {
+  display: flex; align-items: center; gap: 7px;
+  color: var(--vm); justify-content: center;
+}
+
+.live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--vm);
+  box-shadow: 0 0 8px var(--vm);
+  animation: ldot 2.4s ease-in-out infinite;
+}
+@keyframes ldot {
+  0%,100% { opacity:1; box-shadow:0 0 8px var(--vm); }
+  50%      { opacity:.4; box-shadow:0 0 3px var(--vm); }
+}
+
+/* ══ HERO ════════════════════════════════════════════════════════ */
+.hero {
+  text-align: center;
+  padding: 68px 24px 52px;
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+}
+
+.hblob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: -1;
+}
+.hblob-1 {
+  width: 520px; height: 300px;
+  background: radial-gradient(ellipse,rgba(255,85,0,.08) 0%,transparent 70%);
+  top: -60px; left: 8%;
+  animation: b1 13s ease-in-out infinite alternate;
+}
+.hblob-2 {
+  width: 480px; height: 280px;
+  background: radial-gradient(ellipse,rgba(0,191,255,.07) 0%,transparent 70%);
+  top: -40px; right: 6%;
+  animation: b2 10s ease-in-out infinite alternate;
+}
+@keyframes b1 { from{transform:translate(0,0) scale(1)} to{transform:translate(60px,40px) scale(1.15)} }
+@keyframes b2 { from{transform:translate(0,0) scale(1.1)} to{transform:translate(-50px,20px) scale(.9)} }
+
+.eyebrow {
+  font-family: var(--fm);
+  font-size: 9px; letter-spacing: .28em; color: var(--amber);
+  text-transform: uppercase; margin-bottom: 18px;
+  animation: fin .6s ease-out .1s both;
+}
+
+.hero-title {
+  font-weight: 700;
+  font-size: clamp(44px,8vw,96px);
+  line-height: .9; letter-spacing: -.01em;
+  color: #fff; margin-bottom: 22px;
+  text-shadow: 0 0 60px rgba(0,191,255,.14);
+  animation: fin .6s ease-out .2s both;
+}
+.hero-title .accent { color: var(--frost); }
+
+.hero-sub {
+  font-family: var(--fm);
+  font-size: 11px; color: var(--t2);
+  letter-spacing: .14em; margin-bottom: 36px;
+  animation: fin .6s ease-out .3s both;
+}
+
+.layer-pills {
+  display: inline-flex; gap: 10px;
+  flex-wrap: wrap; justify-content: center;
+  animation: fin .6s ease-out .4s both;
+}
+.pill {
+  font-family: var(--fm); font-size: 9px;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 2px; border: 1px solid;
+}
+.pill.l1 { color:var(--frost); border-color:rgba(0,191,255,.3); background:var(--frost-s); }
+.pill.l2 { color:var(--pulse); border-color:rgba(168,85,247,.3); background:var(--pulse-s); }
+.pill.l4 { color:var(--chain); border-color:rgba(0,245,160,.3); background:var(--chain-s); }
+.pill.gai { color:var(--pulse); border-color:rgba(168,85,247,.3); background:var(--pulse-s); }
+.pill.gyt { color:var(--ruby); border-color:rgba(255,45,85,.3); background:var(--ruby-s); }
+
+@keyframes fin {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ══ WORKSPACE ═══════════════════════════════════════════════════ */
+.workspace {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 1px;
+  max-width: 1080px;
+  margin: 0 auto 0;
+  padding: 0 24px;
+  background: var(--b0);
+}
+@media (max-width: 760px) { .workspace { grid-template-columns: 1fr; } }
+
+/* ══ PANELS ══════════════════════════════════════════════════════ */
+.panel {
+  background: var(--surface);
+  padding: 28px;
+  position: relative;
+  animation: pin .55s ease-out both;
+}
+.panel-vault { animation-delay: .5s; }
+.panel-scan  { animation-delay: .65s; }
+@keyframes pin {
+  from { opacity:0; transform:translateY(10px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* corner brackets */
+.panel::before, .panel::after {
+  content: ''; position: absolute;
+  width: 16px; height: 16px;
+  border-color: var(--b2); border-style: solid;
+  z-index: 5;
+}
+.panel-vault::before { top:-1px; left:-1px;    border-width:2px 0 0 2px; }
+.panel-vault::after  { bottom:-1px; left:-1px; border-width:0 0 2px 2px; }
+.panel-scan::before  { top:-1px; right:-1px;    border-width:2px 2px 0 0; }
+.panel-scan::after   { bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+
+.panel-head {
+  display: flex; align-items: center; gap: 10px;
+  padding-bottom: 20px; margin-bottom: 24px;
+  border-bottom: 1px solid var(--b0);
+}
+
+.pbadge {
+  font-family: var(--fm); font-size: 8px;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 2px; border: 1px solid;
+}
+.panel-vault .pbadge { color:var(--frost); border-color:rgba(0,191,255,.3); background:var(--frost-s); }
+.panel-scan  .pbadge { color:var(--amber); border-color:rgba(255,85,0,.3);  background:var(--amber-s); }
+
+.pname {
+  font-size: 12px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--t1);
+}
+
+/* ══ DROP ZONE ═══════════════════════════════════════════════════ */
+input[type="file"] { display: none; }
+
+.dz {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+  min-height: 120px; padding: 28px 20px;
+  border: 1px dashed var(--b2); border-radius: 3px;
+  cursor: pointer; text-align: center;
+  transition: border-color .2s, background .2s;
+  margin-bottom: 14px;
+}
+.dz:hover, .dz.over { border-color:var(--frost); border-style:solid; background:var(--frost-s); }
+.dz.has-file        { border-color:var(--frost); border-style:solid; background:var(--frost-s); }
+
+.dz-icon {
+  width:32px; height:32px; color:var(--t3);
+  transition: color .2s;
+}
+.dz:hover .dz-icon, .dz.has-file .dz-icon, .dz.over .dz-icon { color:var(--frost); }
+
+.dz-text {
+  font-family: var(--fm); font-size:10px;
+  letter-spacing:.08em; color:var(--t2);
+  transition: color .2s;
+  word-break: break-all; text-align: center; max-width: 240px;
+}
+.dz:hover .dz-text, .dz.has-file .dz-text, .dz.over .dz-text { color:var(--frost); }
+
+.dz-hint {
+  font-family:var(--fm); font-size:8px;
+  color:var(--t3); letter-spacing:.06em;
+}
+
+/* ══ BUTTONS ═════════════════════════════════════════════════════ */
+.btn {
+  display: block; width: 100%;
+  padding: 12px 20px;
+  font-family: var(--fd); font-size: 13px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  border-radius: 3px; border: 1px solid;
+  cursor: pointer;
+  transition: background .2s, box-shadow .2s, opacity .2s, transform .1s;
+}
+.btn:active:not(:disabled) { transform: scale(.99); }
+.btn:disabled { opacity:.25; cursor:not-allowed; }
+
+.btn-vault {
+  background: transparent; border-color:var(--frost); color:var(--frost);
+}
+.btn-vault:hover:not(:disabled) {
+  background:var(--frost-s);
+  box-shadow: 0 0 24px var(--frost-g), inset 0 0 12px rgba(0,191,255,.04);
+}
+
+.btn-scan {
+  background:var(--amber-s); border-color:var(--amber); color:var(--amber);
+}
+.btn-scan:hover:not(:disabled) {
+  background:rgba(255,85,0,.18);
+  box-shadow: 0 0 24px var(--amber-g);
+}
+
+.btn-gemini {
+  background:var(--pulse-s); border-color:var(--pulse); color:var(--pulse);
+  font-size: 11px;
+}
+.btn-gemini:hover:not(:disabled) {
+  background:rgba(168,85,247,.18);
+  box-shadow: 0 0 24px var(--pulse-g);
+}
+
+.btn-yt {
+  background:var(--ruby-s); border-color:var(--ruby); color:var(--ruby);
+  font-size: 11px;
+}
+.btn-yt:hover:not(:disabled) {
+  background:rgba(255,45,85,.18);
+  box-shadow: 0 0 24px var(--ruby-g);
+}
+
+/* ══ STATUS LINE ═════════════════════════════════════════════════ */
+.sline {
+  min-height: 22px; margin-top: 10px;
+  font-family: var(--fm); font-size: 10px;
+  letter-spacing: .06em;
+  display: flex; align-items: center; gap: 8px;
+  color: var(--t2);
+}
+.sline.ok  { color: var(--vm); }
+.sline.err { color: var(--vn); }
+
+.spin {
+  width:12px; height:12px; flex-shrink:0;
+  border:1.5px solid var(--b1); border-top-color:var(--frost);
+  border-radius:50%; animation:sp .7s linear infinite;
+}
+.spin.purple { border-top-color:var(--pulse); }
+.spin.red    { border-top-color:var(--ruby); }
+@keyframes sp { to { transform:rotate(360deg); } }
+
+/* ══ ASSET LIST ══════════════════════════════════════════════════ */
+.alist-head {
+  display:flex; align-items:center;
+  justify-content:space-between;
+  margin:24px 0 8px;
+}
+.alist-label {
+  font-family:var(--fm); font-size:8px;
+  color:var(--t3); letter-spacing:.16em; text-transform:uppercase;
+}
+.alist-count {
+  font-family:var(--fm); font-size:8px;
+  color:var(--frost); background:var(--frost-s);
+  border:1px solid rgba(0,191,255,.2);
+  padding:2px 8px; border-radius:10px; letter-spacing:.1em;
+}
+
+.alist-reset {
+  background:transparent; border:1px solid var(--b1);
+  color:var(--t3); font-family:var(--fm); font-size:8px;
+  letter-spacing:.1em; padding:2px 8px; border-radius:2px;
+  cursor:pointer; transition:border-color .2s, color .2s;
+}
+.alist-reset:hover { border-color:var(--vn); color:var(--vn); }
+
+.alist {
+  border:1px solid var(--b0); border-radius:3px;
+  overflow:hidden; max-height:200px; overflow-y:auto;
+}
+.alist::-webkit-scrollbar { width:4px; }
+.alist::-webkit-scrollbar-track { background:transparent; }
+.alist::-webkit-scrollbar-thumb { background:var(--b1); border-radius:2px; }
+
+.arow {
+  display:flex; align-items:center; gap:8px;
+  padding:8px 12px; border-bottom:1px solid var(--b0);
+  transition:background .15s;
+}
+.arow:last-child { border-bottom:none; }
+.arow:hover { background:var(--raised); }
+
+.adot { width:4px; height:4px; border-radius:50%; background:var(--frost); flex-shrink:0; }
+.aname {
+  font-family:var(--fm); font-size:9px; color:var(--t1);
+  flex:1; min-width:0; overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap;
+}
+.adur { font-family:var(--fm); font-size:9px; color:var(--t3); flex-shrink:0; }
+.aempty {
+  padding:18px 12px; font-family:var(--fm);
+  font-size:9px; color:var(--t3); text-align:center; letter-spacing:.08em;
+}
+
+/* ══ SCAN PROGRESS ═══════════════════════════════════════════════ */
+.sprog { display:none; margin-top:24px; }
+.sprog.visible { display:block; }
+
+.sprog-title {
+  font-family:var(--fm); font-size:8px;
+  color:var(--t3); letter-spacing:.18em; text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+.sprog-block {
+  border:1px solid var(--b0); border-radius:3px;
+  overflow:hidden; position:relative;
+}
+.sprog-block::after {
+  content:''; position:absolute; left:0; right:0; height:1px;
+  background: linear-gradient(90deg,transparent 0%,var(--frost) 50%,transparent 100%);
+  box-shadow: 0 0 12px var(--frost-g);
+  top:0; opacity:0; transition:opacity .3s;
+  animation: sbeam 2s linear infinite;
+}
+.sprog-block.scanning::after { opacity:1; }
+@keyframes sbeam { 0%{top:0} 100%{top:100%} }
+
+.srow {
+  display:flex; align-items:center; gap:12px;
+  padding:10px 14px; border-bottom:1px solid var(--b0);
+}
+.srow:last-child { border-bottom:none; }
+
+.sring {
+  width:10px; height:10px; border-radius:50%;
+  border:1.5px solid var(--b1); flex-shrink:0; transition:all .3s;
+}
+.sring.spinning { border-top-color:var(--frost); animation:sp .7s linear infinite; }
+.sring.done     { background:var(--chain); border-color:var(--chain); box-shadow:0 0 6px var(--chain-g); animation:none; }
+
+.slabel { font-family:var(--fm); font-size:9px; color:var(--t2); letter-spacing:.08em; flex:1; }
+.sstat  { font-family:var(--fm); font-size:8px; color:var(--t3); letter-spacing:.1em; text-transform:uppercase; transition:color .3s; }
+.sstat.active { color:var(--frost); }
+.sstat.done   { color:var(--chain); }
+
+/* ══ RESULT PANEL ════════════════════════════════════════════════ */
+.rpanel { display:none; margin-top:24px; }
+.rpanel.visible { display:block; }
+
+/* verdict */
+.verdict {
+  padding:22px 20px; border-radius:3px; border:1px solid;
+  text-align:center; margin-bottom:22px;
+  animation: vstamp .5s cubic-bezier(.34,1.56,.64,1) both;
+  position:relative; overflow:hidden;
+}
+.verdict::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.025) 0%,transparent 60%);
+  pointer-events:none;
+}
+@keyframes vstamp {
+  0%  { opacity:0; transform:scale(1.08) translateY(-6px); }
+  100%{ opacity:1; transform:scale(1)    translateY(0); }
+}
+
+.verdict.vm { border-color:var(--vm); background:var(--vm-bg); }
+.verdict.vw { border-color:var(--vw); background:var(--vw-bg); }
+.verdict.vn { border-color:var(--vn); background:var(--vn-bg); }
+
+.vsub {
+  font-family:var(--fm); font-size:8px;
+  letter-spacing:.22em; text-transform:uppercase; margin-bottom:8px;
+}
+.verdict.vm .vsub { color:rgba(0,230,118,.6); }
+.verdict.vw .vsub { color:rgba(255,171,0,.6); }
+.verdict.vn .vsub { color:rgba(255,23,68,.6); }
+
+.vword {
+  font-weight:700; font-size:clamp(28px,5vw,46px);
+  line-height:1; letter-spacing:.06em; margin-bottom:8px;
+}
+.verdict.vm .vword { color:var(--vm); text-shadow:0 0 40px rgba(0,230,118,.4); }
+.verdict.vw .vword { color:var(--vw); text-shadow:0 0 40px rgba(255,171,0,.4); }
+.verdict.vn .vword { color:var(--vn); text-shadow:0 0 40px rgba(255,23,68,.4); }
+
+.vsrc { font-family:var(--fm); font-size:9px; color:var(--t2); letter-spacing:.06em; }
+.vsrc strong { color:var(--t1); }
+
+/* score section */
+.score-sec {
+  display:flex; align-items:flex-start; gap:20px;
+  padding:18px; margin-bottom:22px;
+  background:var(--raised); border:1px solid var(--b0); border-radius:3px;
+  animation: fup .4s ease-out .15s both;
+}
+@keyframes fup {
+  from { opacity:0; transform:translateY(6px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.snum {
+  font-weight:700; font-size:52px; line-height:1;
+  color:#fff; text-align:center; min-width:90px;
+}
+.slbl {
+  font-family:var(--fm); font-size:7px; color:var(--t3);
+  letter-spacing:.18em; text-transform:uppercase;
+  margin-top:3px; text-align:center;
+}
+.sdiv { width:1px; background:var(--b1); align-self:stretch; flex-shrink:0; }
+.agree-sec { flex:1; }
+.agree-lbl {
+  font-family:var(--fm); font-size:8px; color:var(--t3);
+  letter-spacing:.14em; text-transform:uppercase; margin-bottom:10px;
+}
+.adots { display:flex; gap:10px; margin-bottom:10px; }
+.adot-r {
+  width:12px; height:12px; border-radius:50%;
+  border:1.5px solid var(--b2); background:transparent; transition:all .4s;
+}
+.adot-r.on {
+  background:var(--chain); border-color:var(--chain);
+  box-shadow:0 0 10px var(--chain-g);
+}
+.agree-txt { font-family:var(--fm); font-size:9px; color:var(--t2); }
+
+/* layer bars */
+.lsec { animation: fup .4s ease-out .25s both; }
+.lrow { margin-bottom:16px; }
+.lrhead { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+
+.lname {
+  font-family:var(--fm); font-size:9px;
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.lname.l1 { color:var(--frost); }
+.lname.l2 { color:var(--pulse); }
+.lname.l4 { color:var(--chain); }
+
+.lpct { font-family:var(--fm); font-size:11px; font-weight:600; }
+.lpct.l1 { color:var(--frost); }
+.lpct.l2 { color:var(--pulse); }
+.lpct.l4 { color:var(--chain); }
+
+.btrack {
+  height:5px; background:var(--raised); border-radius:1px;
+  overflow:hidden; border:1px solid var(--b0);
+}
+.bfill {
+  height:100%; width:0; border-radius:1px;
+  transition:width .9s cubic-bezier(.16,1,.3,1);
+}
+.bfill.l1 { background:var(--frost); box-shadow:2px 0 12px var(--frost-g); }
+.bfill.l2 { background:var(--pulse); box-shadow:2px 0 12px var(--pulse-g); }
+.bfill.l4 { background:var(--chain); box-shadow:2px 0 12px var(--chain-g); }
+
+/* explanation */
+.exbox {
+  padding:14px; background:var(--raised);
+  border:1px solid var(--b0); border-left:2px solid var(--frost);
+  border-radius:3px; animation: fup .4s ease-out .35s both;
+}
+.exlbl {
+  font-family:var(--fm); font-size:7px; color:var(--t3);
+  letter-spacing:.2em; text-transform:uppercase; margin-bottom:7px;
+}
+.extxt { font-family:var(--fm); font-size:10px; color:var(--t2); line-height:1.8; }
+
+/* ══ GOOGLE INTELLIGENCE DIVIDER ═════════════════════════════════ */
+.g-divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 28px 0 20px;
+  animation: fup .4s ease-out .45s both;
+}
+.g-divider::before, .g-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--b1);
+}
+.g-divider-label {
+  font-family: var(--fm); font-size: 8px;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--t3);
+  display: flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+}
+.g-dot {
+  display: flex; gap: 2px;
+}
+.g-dot span {
+  width: 5px; height: 5px; border-radius: 50%;
+}
+.g-dot span:nth-child(1) { background: #4285F4; }
+.g-dot span:nth-child(2) { background: #EA4335; }
+.g-dot span:nth-child(3) { background: #FBBC04; }
+.g-dot span:nth-child(4) { background: #34A853; }
+
+/* ══ GOOGLE ACTION ROW ═══════════════════════════════════════════ */
+.g-actions {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-bottom: 16px;
+  animation: fup .4s ease-out .5s both;
+}
+
+/* ══ GEMINI RESULT ═══════════════════════════════════════════════ */
+.gemini-result {
+  display: none; margin-bottom: 16px;
+  animation: fup .35s ease-out both;
+}
+.gemini-result.visible { display: block; }
+
+.gemini-box {
+  padding: 14px;
+  background: rgba(168,85,247,.05);
+  border: 1px solid rgba(168,85,247,.2);
+  border-left: 2px solid var(--pulse);
+  border-radius: 3px;
+  margin-bottom: 12px;
+}
+.gemini-box .exlbl { color: rgba(168,85,247,.5); }
+.gemini-box .extxt { color: var(--t1); }
+
+.dmca-wrap { display: none; }
+.dmca-wrap.visible { display: block; }
+
+.dmca-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.dmca-lbl {
+  font-family: var(--fm); font-size: 7px;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(168,85,247,.5);
+}
+.copy-btn {
+  font-family: var(--fm); font-size: 8px;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 2px;
+  border: 1px solid rgba(168,85,247,.3);
+  background: var(--pulse-s); color: var(--pulse);
+  cursor: pointer; transition: background .2s;
+}
+.copy-btn:hover { background: rgba(168,85,247,.2); }
+.copy-btn.copied { color: var(--chain); border-color: rgba(0,245,160,.3); background: var(--chain-s); }
+
+.dmca-text {
+  width: 100%; min-height: 180px;
+  background: var(--raised); border: 1px solid var(--b1);
+  border-radius: 3px; padding: 12px;
+  font-family: var(--fm); font-size: 9px; line-height: 1.7;
+  color: var(--t2); resize: vertical;
+  outline: none;
+}
+.dmca-text:focus { border-color: rgba(168,85,247,.4); }
+
+/* ══ YOUTUBE RESULT ══════════════════════════════════════════════ */
+.yt-result {
+  display: none; margin-bottom: 16px;
+  animation: fup .35s ease-out both;
+}
+.yt-result.visible { display: block; }
+
+.yt-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.yt-lbl {
+  font-family: var(--fm); font-size: 7px;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,45,85,.5);
+  display: flex; align-items: center; gap: 6px;
+}
+.yt-count-badge {
+  font-family: var(--fm); font-size: 8px;
+  color: var(--ruby); background: var(--ruby-s);
+  border: 1px solid rgba(255,45,85,.25);
+  padding: 2px 8px; border-radius: 10px; letter-spacing: .1em;
+}
+
+.yt-list {
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+.yt-card {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 12px;
+  background: rgba(255,45,85,.04);
+  border: 1px solid rgba(255,45,85,.15);
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background .2s, border-color .2s;
+  cursor: pointer;
+}
+.yt-card:hover {
+  background: rgba(255,45,85,.08);
+  border-color: rgba(255,45,85,.3);
+}
+
+.yt-thumb-wrap {
+  flex-shrink: 0; position: relative;
+  width: 80px; height: 45px;
+  border-radius: 2px; overflow: hidden;
+  background: var(--b1);
+}
+.yt-thumb-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.yt-play {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.4);
+  opacity: 0; transition: opacity .2s;
+}
+.yt-card:hover .yt-play { opacity: 1; }
+.yt-play svg { width: 20px; height: 20px; color: #fff; }
+
+.yt-info { flex: 1; min-width: 0; }
+.yt-title {
+  font-family: var(--fm); font-size: 9px; color: var(--t1);
+  line-height: 1.4; margin-bottom: 4px;
+  overflow: hidden; display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+.yt-channel {
+  font-family: var(--fm); font-size: 8px; color: var(--t3);
+  letter-spacing: .05em; margin-bottom: 6px;
+}
+.yt-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+.suspicion-badge {
+  font-family: var(--fm); font-size: 7px; letter-spacing: .1em;
+  text-transform: uppercase; padding: 2px 6px; border-radius: 2px;
+}
+.suspicion-badge.high   { color: var(--ruby);  background: var(--ruby-s);  border: 1px solid rgba(255,45,85,.25); }
+.suspicion-badge.medium { color: var(--amber); background: var(--amber-s); border: 1px solid rgba(255,85,0,.25); }
+.suspicion-badge.low    { color: var(--t3);   background: var(--raised);   border: 1px solid var(--b1); }
+
+.yt-date {
+  font-family: var(--fm); font-size: 7px; color: var(--t3); letter-spacing: .05em;
+}
+
+.yt-empty {
+  padding: 18px; text-align: center;
+  font-family: var(--fm); font-size: 9px; color: var(--t3);
+  border: 1px solid var(--b0); border-radius: 3px;
+}
+
+/* ══ GOOGLE SECTION FULL WIDTH ═══════════════════════════════════ */
+.google-strip {
+  display: none;
+  max-width: 1080px;
+  margin: 1px auto 0;
+  padding: 0 24px;
+}
+.google-strip.visible { display: block; }
+
+.g-strip-inner {
+  background: var(--surface);
+  border: 1px solid var(--b0);
+  padding: 28px;
+  position: relative;
+}
+.g-strip-inner::before {
+  content: ''; position: absolute;
+  top: -1px; left: -1px; width: 16px; height: 16px;
+  border-top: 2px solid var(--b2); border-left: 2px solid var(--b2);
+}
+.g-strip-inner::after {
+  content: ''; position: absolute;
+  bottom: -1px; right: -1px; width: 16px; height: 16px;
+  border-bottom: 2px solid var(--b2); border-right: 2px solid var(--b2);
+}
+
+.g-strip-head {
+  display: flex; align-items: center; gap: 10px;
+  padding-bottom: 20px; margin-bottom: 24px;
+  border-bottom: 1px solid var(--b0);
+}
+.g-strip-head .pbadge {
+  color: var(--pulse);
+  border-color: rgba(168,85,247,.3);
+  background: var(--pulse-s);
+}
+
+.g-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 760px) { .g-cols { grid-template-columns: 1fr; } }
+
+.g-col-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 14px;
+}
+.g-col-title {
+  font-family: var(--fm); font-size: 8px;
+  letter-spacing: .18em; text-transform: uppercase;
+}
+.g-col-title.gemini { color: var(--pulse); }
+.g-col-title.yt     { color: var(--ruby); }
+
+/* ══ FOOTER ══════════════════════════════════════════════════════ */
+footer {
+  text-align:center; padding:24px;
+  margin-top: 60px;
+  border-top:1px solid var(--b0);
+  font-family:var(--fm); font-size:8px; color:var(--t3);
+  letter-spacing:.14em; text-transform:uppercase;
+}
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <span>Module 01 // Fingerprinting Engine</span>
+  <span class="topbar-mid">
+    <span class="live-dot"></span>
+    System Online
+  </span>
+  <span class="topbar-right">Sports101 // Hackathon Build</span>
+</header>
+
+<section class="hero">
+  <div class="hblob hblob-1" aria-hidden="true"></div>
+  <div class="hblob hblob-2" aria-hidden="true"></div>
+  <div class="eyebrow">Digital Asset Protection</div>
+  <h1 class="hero-title">Signal<br><span class="accent">Intercept</span></h1>
+  <p class="hero-sub">Mirrored · Muted · Cropped · Sped-up. Still identified.</p>
+  <div class="layer-pills">
+    <span class="pill l1">L1 // Visual pHash</span>
+    <span class="pill l2">L2 // Audio Chromaprint</span>
+    <span class="pill l4">L4 // Match DNA</span>
+    <span class="pill gai">Gemini AI</span>
+    <span class="pill gyt">YouTube Scan</span>
+  </div>
+</section>
+
+<main class="workspace">
+
+  <!-- VAULT -->
+  <div class="panel panel-vault">
+    <div class="panel-head">
+      <span class="pbadge">Vault</span>
+      <span class="pname">Register Official Video</span>
+    </div>
+
+    <label class="dz" id="reg-dz" for="reg-file">
+      <svg class="dz-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+      </svg>
+      <div class="dz-text" id="reg-dz-text">Drop official video here</div>
+      <div class="dz-hint">MP4 · MOV · AVI · MKV</div>
+    </label>
+    <input type="file" id="reg-file" accept="video/*">
+
+    <button class="btn btn-vault" id="reg-btn" disabled>Register to Vault</button>
+    <div class="sline" id="reg-status"></div>
+
+    <div class="alist-head">
+      <span class="alist-label">Registered Assets</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="alist-count" id="asset-count">0</span>
+        <button class="alist-reset" id="reset-btn">Reset</button>
+      </div>
+    </div>
+    <div class="alist" id="video-list">
+      <div class="aempty">No assets registered yet.</div>
+    </div>
+  </div>
+
+  <!-- SCAN -->
+  <div class="panel panel-scan">
+    <div class="panel-head">
+      <span class="pbadge">Scan</span>
+      <span class="pname">Check Suspect Clip</span>
+    </div>
+
+    <label class="dz" id="chk-dz" for="chk-file">
+      <svg class="dz-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <div class="dz-text" id="chk-dz-text">Drop suspect clip here</div>
+      <div class="dz-hint">Compared against all registered assets</div>
+    </label>
+    <input type="file" id="chk-file" accept="video/*">
+
+    <button class="btn btn-scan" id="chk-btn" disabled>Run Analysis</button>
+    <div class="sline" id="chk-status"></div>
+
+    <!-- scanning progress -->
+    <div class="sprog" id="sprog">
+      <div class="sprog-title">Fingerprint Analysis</div>
+      <div class="sprog-block" id="sprog-block">
+        <div class="srow">
+          <div class="sring" id="sr-l1"></div>
+          <span class="slabel">L1 // Visual pHash — frame extraction + perceptual hashing</span>
+          <span class="sstat" id="ss-l1">waiting</span>
+        </div>
+        <div class="srow">
+          <div class="sring" id="sr-l2"></div>
+          <span class="slabel">L2 // Chromaprint — acoustic fingerprint + sliding window match</span>
+          <span class="sstat" id="ss-l2">waiting</span>
+        </div>
+        <div class="srow">
+          <div class="sring" id="sr-l4"></div>
+          <span class="slabel">L4 // Match DNA — event peaks + fuzzy sequence matching</span>
+          <span class="sstat" id="ss-l4">waiting</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- result -->
+    <div class="rpanel" id="rpanel">
+
+      <div class="verdict" id="verdict">
+        <div class="vsub" id="vsub"></div>
+        <div class="vword" id="vword"></div>
+        <div class="vsrc" id="vsrc"></div>
+      </div>
+
+      <div class="score-sec">
+        <div>
+          <div class="snum" id="snum">—</div>
+          <div class="slbl">Fusion Score</div>
+        </div>
+        <div class="sdiv"></div>
+        <div class="agree-sec">
+          <div class="agree-lbl">Layers Agreeing</div>
+          <div class="adots">
+            <div class="adot-r" id="ad0"></div>
+            <div class="adot-r" id="ad1"></div>
+            <div class="adot-r" id="ad2"></div>
+          </div>
+          <div class="agree-txt" id="agree-txt">—</div>
+        </div>
+      </div>
+
+      <div class="lsec">
+        <div class="lrow">
+          <div class="lrhead">
+            <span class="lname l1">L1 // Visual pHash</span>
+            <span class="lpct l1" id="pct-l1">0%</span>
+          </div>
+          <div class="btrack"><div class="bfill l1" id="bar-l1"></div></div>
+        </div>
+        <div class="lrow">
+          <div class="lrhead">
+            <span class="lname l2">L2 // Chromaprint</span>
+            <span class="lpct l2" id="pct-l2">0%</span>
+          </div>
+          <div class="btrack"><div class="bfill l2" id="bar-l2"></div></div>
+        </div>
+        <div class="lrow">
+          <div class="lrhead">
+            <span class="lname l4">L4 // Match DNA</span>
+            <span class="lpct l4" id="pct-l4">0%</span>
+          </div>
+          <div class="btrack"><div class="bfill l4" id="bar-l4"></div></div>
+        </div>
+      </div>
+
+      <div class="exbox">
+        <div class="exlbl">System Analysis</div>
+        <div class="extxt" id="extxt"></div>
+      </div>
+
+    </div><!-- /rpanel -->
+  </div><!-- /panel-scan -->
+
+</main><!-- /workspace -->
+
+<!-- ══ GOOGLE INTELLIGENCE STRIP (full width, appears after result) ══ -->
+<div class="google-strip" id="google-strip">
+  <div class="g-strip-inner">
+
+    <div class="g-strip-head">
+      <span class="pbadge" style="color:var(--pulse);border-color:rgba(168,85,247,.3);background:var(--pulse-s)">Google AI</span>
+      <span class="pname">Intelligence Layer</span>
+      <div class="g-dot" style="margin-left:auto">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="g-cols">
+
+      <!-- LEFT: Gemini -->
+      <div>
+        <div class="g-col-head">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pulse)" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span class="g-col-title gemini">Gemini AI Analysis</span>
+          <span style="margin-left:auto;font-family:var(--fm);font-size:7px;letter-spacing:.12em;color:var(--t3);background:var(--raised);border:1px solid var(--b1);padding:2px 7px;border-radius:2px;">Gemini 2.0 Flash · Ollama llama3.1:8b fallback</span>
+        </div>
+
+        <button class="btn btn-gemini" id="ai-btn">
+          Analyze with Gemini + Draft DMCA
+        </button>
+        <div class="sline" id="ai-status"></div>
+
+        <div class="gemini-result" id="gemini-result">
+          <div class="gemini-box">
+            <div class="exlbl">Gemini Interpretation</div>
+            <div class="extxt" id="ai-explanation"></div>
+          </div>
+          <div class="dmca-wrap" id="dmca-wrap">
+            <div class="dmca-head">
+              <span class="dmca-lbl">DMCA Section 512 Takedown Notice</span>
+              <button class="copy-btn" id="copy-dmca-btn">Copy</button>
+            </div>
+            <textarea class="dmca-text" id="dmca-text" readonly></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: YouTube -->
+      <div>
+        <div class="g-col-head">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ruby)">
+            <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.6 5.8a3 3 0 002.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 002.1-2.1c.5-2 .5-5.9.5-5.9s0-3.9-.5-5.7zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/>
+          </svg>
+          <span class="g-col-title yt">YouTube Piracy Scan</span>
+        </div>
+
+        <button class="btn btn-yt" id="yt-btn">
+          Scan YouTube for Piracy
+        </button>
+        <div class="sline" id="yt-status"></div>
+
+        <div class="yt-result" id="yt-result">
+          <div class="yt-header">
+            <span class="yt-lbl">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--ruby)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Potential Infringements
+            </span>
+            <span class="yt-count-badge" id="yt-count">0</span>
+          </div>
+          <div class="yt-list" id="yt-list"></div>
+        </div>
+      </div>
+
+    </div><!-- /g-cols -->
+  </div>
+</div><!-- /google-strip -->
+
+<footer>
+  Sports101 &nbsp;·&nbsp; Module 01 — Video Fingerprinting Engine &nbsp;·&nbsp; Visual · Audio · DNA · Gemini AI · YouTube &nbsp;·&nbsp; Hackathon Build
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+
+let _lastResult = null;
+let _suspectFilename = '';
+
+/* ── drag-drop init ── */
+function initDZ(inputId, dzId, textId, btnId, placeholder) {
+  const inp = $(inputId), dz = $(dzId), txt = $(textId), btn = $(btnId);
+  inp.addEventListener('change', () => {
+    const f = inp.files[0];
+    txt.textContent = f ? f.name : placeholder;
+    dz.classList.toggle('has-file', !!f);
+    btn.disabled = !f;
+  });
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('over');
+    const f = e.dataTransfer.files[0]; if (!f) return;
+    try { const dt = new DataTransfer(); dt.items.add(f); inp.files = dt.files; } catch(_) {}
+    inp.dispatchEvent(new Event('change'));
+  });
+}
+initDZ('reg-file','reg-dz','reg-dz-text','reg-btn','Drop official video here');
+initDZ('chk-file','chk-dz','chk-dz-text','chk-btn','Drop suspect clip here');
+
+/* ── status helpers ── */
+function stat(id, msg, cls) {
+  const e = $(id); e.className = 'sline ' + (cls || ''); e.textContent = msg;
+}
+function statSpin(id, msg, spinCls) {
+  const e = $(id); e.className = 'sline';
+  e.innerHTML = `<div class="spin ${spinCls||''}"></div>${msg}`;
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ── register ── */
+$('reg-btn').addEventListener('click', async () => {
+  const file = $('reg-file').files[0]; if (!file) return;
+  $('reg-btn').disabled = true;
+  statSpin('reg-status', 'Fingerprinting… (10–20 s)');
+  const fd = new FormData(); fd.append('file', file);
+  try {
+    const data = await fetch('/api/register',{method:'POST',body:fd}).then(r=>r.json());
+    if (data.error) { stat('reg-status','Error: '+data.error,'err'); }
+    else {
+      stat('reg-status',`Registered: ${esc(data.name)} (${(data.duration_sec||0).toFixed(1)} s)`,'ok');
+      $('reg-file').value=''; $('reg-dz-text').textContent='Drop official video here';
+      $('reg-dz').classList.remove('has-file');
+      loadList();
+    }
+  } catch(e) { stat('reg-status','Network error: '+e.message,'err'); }
+  finally { $('reg-btn').disabled=false; }
+});
+
+/* ── reset ── */
+$('reset-btn').addEventListener('click', async () => {
+  if (!confirm('Clear all registered assets?')) return;
+  try {
+    const data = await fetch('/api/reset',{method:'POST'}).then(r=>r.json());
+    if (data.error) alert('Reset failed: '+data.error);
+    else loadList();
+  } catch(e) { alert('Network error: '+e.message); }
+});
+
+/* ── scan animation ── */
+let scanTmr = null;
+
+function startScan() {
+  ['l1','l2','l4'].forEach(id => {
+    $('sr-'+id).className = 'sring';
+    $('ss-'+id).className = 'sstat';
+    $('ss-'+id).textContent = 'waiting';
+  });
+  $('sprog-block').classList.add('scanning');
+  $('sprog').classList.add('visible');
+  let step = 0;
+  const ids = ['l1','l2','l4'];
+  scanTmr = setInterval(() => {
+    if (step < ids.length) {
+      $('sr-'+ids[step]).className = 'sring spinning';
+      $('ss-'+ids[step]).className = 'sstat active';
+      $('ss-'+ids[step]).textContent = 'scanning...';
+      step++;
+    }
+  }, 2800);
+}
+
+function stopScan() {
+  if (scanTmr) { clearInterval(scanTmr); scanTmr = null; }
+  $('sprog-block').classList.remove('scanning');
+  ['l1','l2','l4'].forEach(id => {
+    $('sr-'+id).className = 'sring done';
+    $('ss-'+id).className = 'sstat done';
+    $('ss-'+id).textContent = 'done';
+  });
+  setTimeout(() => $('sprog').classList.remove('visible'), 700);
+}
+
+/* ── check ── */
+$('chk-btn').addEventListener('click', async () => {
+  const file = $('chk-file').files[0]; if (!file) return;
+  _suspectFilename = file.name;
+  $('chk-btn').disabled = true;
+  $('rpanel').classList.remove('visible');
+  $('google-strip').classList.remove('visible');
+  resetGooglePanels();
+  stat('chk-status','');
+  startScan();
+  const fd = new FormData(); fd.append('file', file);
+  try {
+    const data = await fetch('/api/check',{method:'POST',body:fd}).then(r=>r.json());
+    stopScan();
+    if (data.error) stat('chk-status','Error: '+data.error,'err');
+    else renderResult(data);
+  } catch(e) {
+    stopScan();
+    stat('chk-status','Network error: '+e.message,'err');
+  } finally { $('chk-btn').disabled=false; }
+});
+
+/* ── render result ── */
+function renderResult(d) {
+  _lastResult = d;
+
+  const v   = d.verdict || 'NO_MATCH';
+  const pct = Math.round((d.overall_score||0)*100);
+  const pl  = d.per_layer || {};
+  const ag  = d.agreeing_layers || 0;
+
+  const ve = $('verdict');
+  ve.className = 'verdict ' + (v==='MATCH'?'vm':v==='WEAK_MATCH'?'vw':'vn');
+
+  $('vsub').textContent =
+    v==='MATCH'      ? 'Protected Content Identified' :
+    v==='WEAK_MATCH' ? 'Possible Match Detected'      : 'No Match Found';
+  $('vword').textContent =
+    v==='MATCH'      ? 'MATCH'      :
+    v==='WEAK_MATCH' ? 'WEAK MATCH' : 'NO MATCH';
+
+  const src = $('vsrc');
+  src.innerHTML = (d.matched_name && v!=='NO_MATCH')
+    ? 'Source: <strong>'+esc(d.matched_name)+'</strong>' : '';
+
+  $('snum').textContent = pct+'%';
+  for(let i=0;i<3;i++) $('ad'+i).classList.toggle('on',i<ag);
+  $('agree-txt').textContent = ag+' of 3 layers agree';
+
+  $('rpanel').classList.add('visible');
+  setTimeout(()=>{
+    setBar('bar-l1','pct-l1',pl.layer1);
+    setBar('bar-l2','pct-l2',pl.layer2);
+    setBar('bar-l4','pct-l4',pl.layer4);
+  }, 50);
+
+  $('extxt').textContent = d.explanation || '';
+
+  // Show Google strip with a small delay for effect
+  setTimeout(() => {
+    $('google-strip').classList.add('visible');
+    // Pre-populate YouTube scan target
+    const ytTarget = d.matched_name || _suspectFilename;
+    $('yt-btn').dataset.videoName = ytTarget;
+  }, 600);
+}
+
+function setBar(bId, pId, val) {
+  const p = Math.round((val||0)*100);
+  $(bId).style.width = p+'%';
+  $(pId).textContent = p+'%';
+}
+
+/* ── Gemini AI Analysis ── */
+$('ai-btn').addEventListener('click', async () => {
+  if (!_lastResult) return;
+  $('ai-btn').disabled = true;
+  statSpin('ai-status', 'Gemini analyzing…', 'purple');
+  $('gemini-result').classList.remove('visible');
+
+  try {
+    const data = await fetch('/api/ai-explain', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        match_result: _lastResult,
+        suspect_filename: _suspectFilename,
+      }),
+    }).then(r=>r.json());
+
+    if (data.error) {
+      stat('ai-status','Gemini error: '+data.error,'err');
+      return;
+    }
+
+    $('ai-explanation').textContent = data.explanation || '';
+    const dmcaText = data.dmca_notice || '';
+    if (dmcaText) {
+      $('dmca-text').value = dmcaText;
+      $('dmca-wrap').classList.add('visible');
+    } else {
+      $('dmca-wrap').classList.remove('visible');
+    }
+
+    stat('ai-status', 'Analysis complete', 'ok');
+    $('gemini-result').classList.add('visible');
+  } catch(e) {
+    stat('ai-status','Network error: '+e.message,'err');
+  } finally {
+    $('ai-btn').disabled = false;
+  }
+});
+
+/* ── DMCA Copy ── */
+$('copy-dmca-btn').addEventListener('click', () => {
+  const text = $('dmca-text').value;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = $('copy-dmca-btn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+});
+
+/* ── YouTube Piracy Scan ── */
+$('yt-btn').addEventListener('click', async () => {
+  const videoName = $('yt-btn').dataset.videoName || _suspectFilename;
+  if (!videoName) return;
+  $('yt-btn').disabled = true;
+  statSpin('yt-status', 'Scanning YouTube…', 'red');
+  $('yt-result').classList.remove('visible');
+
+  try {
+    const data = await fetch('/api/youtube-scan', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ video_name: videoName }),
+    }).then(r=>r.json());
+
+    if (data.error) {
+      stat('yt-status','YouTube error: '+data.error,'err');
+      return;
+    }
+
+    const results = data.results || [];
+    $('yt-count').textContent = results.length;
+    renderYTResults(results);
+
+    stat('yt-status', `${results.length} result${results.length!==1?'s':''} found`, results.length?'ok':'');
+    $('yt-result').classList.add('visible');
+  } catch(e) {
+    stat('yt-status','Network error: '+e.message,'err');
+  } finally {
+    $('yt-btn').disabled = false;
+  }
+});
+
+function renderYTResults(results) {
+  const list = $('yt-list');
+  if (!results.length) {
+    list.innerHTML = '<div class="yt-empty">No suspicious results found for this query.</div>';
+    return;
+  }
+
+  list.innerHTML = results.map(r => {
+    const score = r.suspicious_score || 0;
+    const badgeCls = score >= 5 ? 'high' : score >= 3 ? 'medium' : 'low';
+    const badgeTxt = score >= 5 ? 'High Risk' : score >= 3 ? 'Medium Risk' : 'Low Risk';
+    const date = r.published_at ? new Date(r.published_at).toLocaleDateString('en-GB',{year:'numeric',month:'short',day:'numeric'}) : '';
+
+    return `<div class="yt-card" onclick="window.open('${esc(r.url)}','_blank')">
+      <div class="yt-thumb-wrap">
+        ${r.thumbnail ? `<img src="${esc(r.thumbnail)}" alt="" loading="lazy">` : ''}
+        <div class="yt-play">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+      </div>
+      <div class="yt-info">
+        <div class="yt-title">${esc(r.title)}</div>
+        <div class="yt-channel">${esc(r.channel)}</div>
+        <div class="yt-meta">
+          <span class="suspicion-badge ${badgeCls}">${badgeTxt}</span>
+          ${date ? `<span class="yt-date">${esc(date)}</span>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function resetGooglePanels() {
+  $('gemini-result').classList.remove('visible');
+  $('yt-result').classList.remove('visible');
+  $('dmca-wrap').classList.remove('visible');
+  stat('ai-status','');
+  stat('yt-status','');
+  $('ai-btn').disabled = false;
+  $('yt-btn').disabled = false;
+  $('ai-explanation').textContent = '';
+  $('dmca-text').value = '';
+  $('yt-list').innerHTML = '';
+  $('yt-count').textContent = '0';
+}
+
+/* ── load list ── */
+async function loadList() {
+  try {
+    const data = await fetch('/api/list').then(r=>r.json());
+    $('asset-count').textContent = data.length;
+    const el = $('video-list');
+    if (!data.length) { el.innerHTML='<div class="aempty">No assets registered yet.</div>'; return; }
+    el.innerHTML = data.map(v=>
+      `<div class="arow">
+        <div class="adot"></div>
+        <span class="aname" title="${esc(v.name)}">${esc(v.name)}</span>
+        <span class="adur">${(v.duration_sec||0).toFixed(1)}s</span>
+      </div>`
+    ).join('');
+  } catch(_) {}
+}
+
+loadList();
+
+if (window.self !== window.top) {
+  document.querySelector('.topbar').style.display = 'none';
+}
+</script>
+</body>
+</html>
