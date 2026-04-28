@@ -11,113 +11,94 @@ Built for the Google Hackathon 2025.
 
 Sports Guardian is a three-module system that protects live sports broadcast rights end-to-end:
 
-| Module | Role | Port |
-|---|---|---|
-| **Signal Intercept** (M1) | Identifies whether a suspect clip was ripped from a protected broadcast, surviving mirroring, re-encoding, muting, speed changes, logo overlays, and cropping | 8000 |
-| **War Room** (M2) | Real-time piracy intelligence dashboard — monitors SSL certificate transparency logs, clusters piracy operators, hunts YouTube channels, runs AI threat briefings | 8002 |
-| **Source Attribution** (M3) | Embeds invisible per-viewer watermarks into video streams so leaked footage can be traced back to the exact subscriber | 8001 |
-| **Guardian Hub** | Unified command dashboard — all three modules in one interface | 8080 |
+| Module | Role |
+|---|---|
+| **Signal Intercept** (M1) | Identifies whether a suspect clip was ripped from a protected broadcast, surviving mirroring, re-encoding, muting, speed changes, logo overlays, and cropping |
+| **War Room** (M2) | Real-time piracy intelligence dashboard — monitors SSL certificate transparency logs, clusters piracy operators, hunts YouTube channels, runs AI threat briefings |
+| **Source Attribution** (M3) | Embeds invisible per-viewer watermarks into video streams so leaked footage can be traced back to the exact subscriber |
 
 ---
 
-## Architecture Overview
+## Live Demo
+
+Deployed as a single service on Railway. All three modules are accessible from one URL:
+
+| Path | Module |
+|---|---|
+| `/` | Guardian Hub — unified dashboard |
+| `/m1/` | Signal Intercept — video fingerprinting |
+| `/m2/` | War Room — threat intelligence |
+| `/m3/` | Source Attribution — watermarking |
+
+---
+
+## Architecture
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                   Guardian Hub :8080                │
-│          Unified command dashboard (iframes)        │
-└──────────┬──────────────┬──────────────┬────────────┘
-           │              │              │
-    ┌──────▼──────┐ ┌─────▼──────┐ ┌───▼────────┐
-    │  M1 :8000   │ │  M2 :8002  │ │  M3 :8001  │
-    │Fingerprint  │ │Threat Intel│ │Watermarking│
-    └─────────────┘ └────────────┘ └────────────┘
+                    Railway (single service)
+                    ┌──────────────────────────────────┐
+  Browser ──────▶  │  main.py  (:$PORT)               │
+                   │  ├── /        → Hub UI            │
+                   │  ├── /m1/*   → M1 (internal :8001)│
+                   │  ├── /m2/*   → M2 (internal :8002)│
+                   │  ├── /m3/*   → M3 (internal :8003)│
+                   │  └── /ws/live → M2 WebSocket      │
+                   └──────────────────────────────────┘
 ```
+
+`main.py` is the single entry point. It starts M1, M2, and M3 as background subprocesses and reverse-proxies all traffic to them.
 
 ---
 
 ## Module 1 — Signal Intercept (Video Fingerprinting)
 
-Identifies pirated clips using a **three-layer pipeline** that is robust to:
-
+Identifies pirated clips using a three-layer pipeline robust to:
 - Mirror / horizontal flip
 - Re-encoding at different bitrates
 - Muting or audio replacement
 - Speed changes (±20%)
-- Letterbox cropping
-- Logo overlays
-- Brightness / contrast shifts
+- Letterbox cropping, logo overlays, brightness shifts
 
-### Layer 1 — Visual pHash
-Extracts frames via FFmpeg, runs each through a normalization pipeline (letterbox strip → center crop → grayscale → logo mask → histogram equalization), then computes a 64-bit perceptual hash (pHash). **Mirror canonicalization**: stores the lexicographically smaller of `hash(frame)` and `hash(flipped_frame)`, making horizontal mirroring a no-op.
+**Layer 1 — Visual pHash:** Extracts frames via FFmpeg, normalizes each (letterbox strip → center crop → grayscale → logo mask → histogram equalization), computes 64-bit pHash. Mirror canonicalization stores the smaller of `hash(frame)` and `hash(flipped_frame)`.
 
-### Layer 2 — Audio Chromaprint
-Extracts 44.1 kHz mono audio via FFmpeg, runs through `fpcalc -raw` (Chromaprint), then uses **sliding-window XOR distance matching** to locate the suspect clip within the original's fingerprint. Gracefully returns 0.0 for muted clips.
+**Layer 2 — Audio Chromaprint:** Extracts 44.1 kHz mono audio, runs through `fpcalc -raw`, then uses sliding-window XOR distance matching to locate the suspect clip within the original fingerprint. Returns 0.0 for muted clips.
 
-### Layer 4 — Match DNA
-Extracts 1-Hz visual energy (frame-diff) and audio RMS signals, detects peaks with `scipy.signal.find_peaks`, encodes peaks as a DNA string with quantized gaps (`s`/`m`/`l`). **Fuzzy substring match** via `rapidfuzz.fuzz.partial_ratio`. Speed invariance comes from ratio encoding, not absolute timestamps.
+**Layer 4 — Match DNA:** Extracts 1-Hz visual and audio energy signals, detects peaks with `scipy`, encodes them as a DNA string with quantized gaps. Fuzzy substring match via `rapidfuzz`. Speed invariant.
 
-### Fusion
-Weighted average of all three layer scores. A match requires both the overall score to clear a threshold AND a minimum number of individual layers to agree.
-
+**Fusion:**
 ```
 overall = 0.45 × L1 + 0.35 × L2 + 0.20 × L4
-match   = overall ≥ 0.55 AND agreeing_layers ≥ 2
+match   = overall ≥ 0.55  AND  agreeing_layers ≥ 2
 ```
 
 ---
 
 ## Module 2 — War Room (Threat Intelligence)
 
-Real-time piracy intelligence powered by Google APIs and local AI.
+**Data ingestion:** CertStream monitors the global SSL certificate transparency log in real time. Every new certificate is scored against keyword lists, cheap TLD lists, and brand similarity checks. Apify scrapers collect from Twitter, Reddit, and Telegram.
 
-### Data Ingestion
-- **CertStream**: Monitors the global SSL certificate transparency log stream in real time. Every new certificate is scored against keyword lists, cheap TLD lists, and brand similarity checks.
-- **Apify scrapers**: Twitter, Reddit, and Telegram collectors harvest piracy promotion links.
+**Three-tier domain scoring:**
+1. Keyword scoring, TLD penalty, brand fuzzy match
+2. AI classification of flagged domains
+3. Google Safe Browsing API confirmation
 
-### Three-Tier Domain Scoring
-1. **Tier 1** (instant): Keyword scoring, TLD penalty, known brand fuzzy match — flags in milliseconds
-2. **Tier 2** (NLP): AI model classifies whether the domain is a piracy site — runs on batches of flagged domains
-3. **Real-time Safe Browsing**: Google Safe Browsing API v4 confirms confirmed malware/social engineering threats
+**Threat graph:** Nodes (domains, YouTube channels, Telegram, Twitter, Reddit) connected by edges. Union-Find operator clustering.
 
-### Threat Graph
-Nodes (domains, YouTube channels, Telegram channels, Twitter accounts, Reddit accounts, invite links) are connected by edges (promotes, links_to, same_operator, posted). Stored in `GraphStore` — an in-memory dict with atomic JSON persistence.
-
-### Analysis Pipeline
-- **Threat scoring**: Weighted combination of connection count, recency decay (`e^(-hours/48)`), and node type weight
-- **Operator clustering**: Union-Find algorithm linking domains by shared TLD + registration time window + brand similarity + shared channels + shared IP
-- **Lifecycle stages**: `setup → promotion → active → dormant` based on promotion edge count and recency
-
-### AI Intelligence
-- **Threat briefing**: Structured JSON threat assessment (level, summary, top threats, cluster analysis, actions, sports at risk) generated every 30 minutes
-- **Operator profiles**: Per-node natural language intelligence profiles on demand
-- **YouTube hunt**: Automated search for piracy channels using configurable query sets
-- **AI backend**: Uses AI API with local Ollama (`llama3.1:8b`) as a silent fallback when quota is exhausted
+**AI intelligence:** Gemini-powered threat briefings every 30 minutes, per-node operator profiles, YouTube piracy channel hunting.
 
 ---
 
 ## Module 3 — Source Attribution (Watermarking)
 
-Embeds a **64-bit session ID** invisibly into every watermarked copy of a video. The session ID is protected by Reed-Solomon error correction and can survive:
+Embeds a 64-bit session ID invisibly into video. Survives re-encoding, compression, and screen recording.
 
-- Re-encoding (H.264/H.265)
-- Moderate compression artifacts
-- Screen recording
+**Layer 1 — Spread Spectrum Visual:** Pseudo-random noise patterns in 32×32 pixel blocks every 5th frame. HMAC-SHA256 keyed RNG per frame.
 
-### Layer 1 — Spread Spectrum Visual
-Adds a pseudo-random noise pattern to 32×32 pixel blocks in every 5th frame. Block positions are determined by an **HMAC-SHA256 keyed RNG** seeded per frame number — invisible to the eye but detectable by correlation.
+**Layer 2 — BPSK Audio:** Watermark bits encoded as Binary Phase Shift Keying at 19 kHz carrier, repeated every 10 seconds.
 
-### Layer 2 — BPSK Audio
-Encodes watermark bits as **Binary Phase Shift Keying** at 19 kHz carrier frequency (near-ultrasonic), repeated every 10 seconds. Detection uses a bandpass filter (18–20.5 kHz) followed by coherent correlation against the reference carrier.
+**Layer 3 — DCT Coefficient Modulation:** 8×8 DCT blocks with forced mid-frequency coefficient parity encoding.
 
-### Layer 3 — DCT Coefficient Modulation
-Divides each frame into 8×8 DCT blocks, selects blocks pseudo-randomly via HMAC-seeded RNG, and forces the parity of a mid-frequency coefficient to encode each bit. Uses quantization step of 15 and 6 blocks per bit for redundancy.
-
-### Reed-Solomon Error Correction
-All three layers encode the same 64-bit session ID protected by 10 Reed-Solomon error correction symbols (using `reedsolo`). This allows up to 5 byte errors to be corrected per layer.
-
-### Extraction & Attribution
-Upload a suspect clip → all three layers attempt extraction → votes are fused → session ID resolved → matched against the session registry to identify the original viewer, account, region, platform, and IP.
+All three layers use Reed-Solomon error correction (10 symbols, tolerates 5 byte errors per layer). Upload a suspect clip → layers vote → session ID resolved → viewer identified.
 
 ---
 
@@ -134,57 +115,55 @@ Upload a suspect clip → all three layers attempt extraction → votes are fuse
 | Threat graph | Custom GraphStore (dict + JSON) |
 | Operator clustering | Union-Find |
 | Certificate monitoring | certstream-python |
-| AI intelligence | AI API · Ollama llama3.1:8b (fallback) |
+| AI intelligence | Gemini API · Ollama llama3.1:8b (fallback) |
 | Safe Browsing | Google Safe Browsing API v4 |
 | YouTube intel | YouTube Data API v3 |
-| Frontend | Vanilla JS, vis-network (graph), Chakra Petch + Azeret Mono |
+| Frontend | Vanilla JS, vis-network, Chakra Petch + Azeret Mono |
 | Real-time comms | WebSocket (FastAPI) |
 
 ---
 
-## Quick Start
+## Deploy to Railway
 
-**Prerequisites**: Python 3.11+, FFmpeg, fpcalc in PATH
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com)
+
+1. Fork this repo
+2. Create a new Railway project → **Deploy from GitHub repo** → select this repo
+3. Leave root directory blank — Railway auto-detects `nixpacks.toml`
+4. Add environment variables (see Configuration below)
+5. **Generate Domain** → your app is live
+
+Railway installs FFmpeg and Chromaprint automatically via Nixpacks. All three modules run as a single service.
+
+---
+
+## Run Locally
+
+**Prerequisites:** Python 3.11+, FFmpeg, fpcalc in PATH
 
 ```bash
-# Module 1 — Fingerprinting
-cd module1-fingerprinting
-python -m venv venv && venv\Scripts\activate
+# Install dependencies
 pip install -r requirements.txt
-uvicorn app:app --port 8000 --reload
 
-# Module 2 — Threat Intelligence
-cd module2-threat-intel
-python -m venv venv && venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app:app --port 8002 --reload
+# Start everything
+uvicorn main:app --reload
 
-# Module 3 — Watermarking
-cd module3-watermarking
-python -m venv venv && venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app:app --port 8001 --reload
-
-# Guardian Hub
-cd hub
-python -m http.server 8080
+# Open http://localhost:8000
 ```
-
-Then open **http://localhost:8080**
 
 ---
 
 ## Configuration
 
-All tunable parameters live in each module's `config.py`. API keys:
+Add API keys as environment variables in Railway (or a local `.env`):
 
-```
-module1-fingerprinting/config.py   → GEMINI_API_KEY, YOUTUBE_API_KEY
-module2-threat-intel/config.py     → GEMINI_API_KEY, YOUTUBE_API_KEY, SAFE_BROWSING_API_KEY
-module3-watermarking/config.py     → WATERMARK_SECRET_KEY, WATERMARK_SALT
-```
+| Variable | Used by | Purpose |
+|---|---|---|
+| `GEMINI_API_KEY` | M1, M2 | AI analysis + threat briefings |
+| `YOUTUBE_API_KEY` | M1, M2 | YouTube scan + piracy hunt |
+| `SAFE_BROWSING_API_KEY` | M2 | Google Safe Browsing |
 
-For AI features without API quota: install [Ollama](https://ollama.ai) and pull `llama3.1:8b`. Module 2 falls back automatically.
+Set them in each module's `config.py` locally, or as Railway environment variables for deployment.
 
 ---
 
@@ -192,41 +171,30 @@ For AI features without API quota: install [Ollama](https://ollama.ai) and pull 
 
 ```
 sports-guardian/
+├── main.py                     # Single entry point — launches all modules
+├── requirements.txt            # Combined dependencies
+├── nixpacks.toml               # Railway build config (ffmpeg + chromaprint)
 ├── module1-fingerprinting/
 │   ├── app.py                  # FastAPI routes
-│   ├── config.py               # All thresholds
+│   ├── config.py               # Thresholds + API keys
 │   ├── storage.py              # JSON fingerprint DB
-│   ├── attack_generator.py     # FFmpeg attack scripts
 │   └── fingerprint/
-│       ├── normalize.py        # Frame canonicalization
-│       ├── layer1_visual.py    # pHash + mirror canonicalization
-│       ├── layer2_audio.py     # Chromaprint + sliding window
-│       ├── layer4_dna.py       # Event-peak DNA + fuzzy match
-│       └── fusion.py           # Score combiner + verdict
+│       ├── layer1_visual.py
+│       ├── layer2_audio.py
+│       ├── layer4_dna.py
+│       └── fusion.py
 ├── module2-threat-intel/
 │   ├── app.py                  # FastAPI + WebSocket + background tasks
-│   ├── config.py               # Scoring weights, API keys, intervals
-│   ├── graph_store.py          # Threat graph (nodes + edges)
-│   ├── scoring.py              # Threat scores, clustering, lifecycle
-│   ├── google_services.py      # Safe Browsing, YouTube, AI services
-│   ├── collectors/
-│   │   ├── certstream_monitor.py
-│   │   ├── apify_twitter.py
-│   │   ├── apify_reddit.py
-│   │   └── apify_telegram.py
-│   ├── nlp/domain_classifier.py
-│   └── parsers/link_extractor.py
+│   ├── config.py               # Scoring weights + API keys
+│   ├── graph_store.py          # Threat graph
+│   ├── scoring.py              # Threat scores + clustering
+│   ├── google_services.py      # Safe Browsing, YouTube, Gemini
+│   └── collectors/             # CertStream, Apify scrapers
 ├── module3-watermarking/
 │   ├── app.py                  # FastAPI routes
 │   ├── config.py               # Watermark parameters
 │   ├── session_registry.py     # Viewer session tracking
-│   ├── watermark/
-│   │   ├── common.py           # RS codec, HMAC RNG, FFmpeg utils
-│   │   ├── layer1_visual.py    # Spread spectrum pixel watermark
-│   │   ├── layer2_audio.py     # BPSK near-ultrasonic watermark
-│   │   ├── layer3_dct.py       # DCT coefficient watermark
-│   │   ├── embedder.py         # Full embedding pipeline
-│   │   └── extractor.py        # Full extraction + attribution
+│   └── watermark/              # Embed + extract pipeline
 └── hub/
     └── static/index.html       # Guardian unified dashboard
 ```
