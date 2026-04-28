@@ -6,6 +6,7 @@ All instantiated once in app.py lifespan and reused.
 
 import json
 import logging
+import re
 import requests
 
 import config
@@ -222,9 +223,11 @@ Generate a threat intelligence briefing. Return JSON only:
 Return ONLY the JSON object."""
 
         try:
-            text = self._call(prompt)
-            text = text.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-            result = json.loads(text)
+            text = self._call(prompt, max_tokens=4096)
+            m = re.search(r'\{[\s\S]*\}', text)
+            if not m:
+                raise ValueError("No JSON object found in response")
+            result = json.loads(m.group())
             self.stats["briefings"] += 1
             log.info("[Gemini] Briefing generated — threat level: %s", result.get("threat_level"))
             return result
