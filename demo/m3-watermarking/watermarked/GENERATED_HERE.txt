@@ -1,0 +1,8 @@
+Watermarked copies are generated here by Module 3.
+
+In the demo:
+  1. Upload broadcast.mp4 with Viewer Name = "Alice"   → alice_watermarked.mp4
+  2. Upload broadcast.mp4 with Viewer Name = "Bob"     → bob_watermarked.mp4
+  3. Upload broadcast.mp4 with Viewer Name = "Charlie" → charlie_watermarked.mp4
+
+These files are created automatically by the /api/embed endpoint.

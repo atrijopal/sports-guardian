@@ -1,0 +1,6 @@
+Place the "leaked" video here — one of the watermarked copies.
+
+For the demo: copy bob_watermarked.mp4 from the watermarked/ folder here.
+Rename it to "leaked_clip.mp4" so it looks like an anonymous leak.
+
+Then EXTRACT it in Module 3 — it should identify Bob as the leaker.

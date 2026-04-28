@@ -1,0 +1,4 @@
+Place your original protected video here.
+Example: match_clip.mp4 (minimum 45 seconds for best results)
+
+This is the video you REGISTER in Module 1.

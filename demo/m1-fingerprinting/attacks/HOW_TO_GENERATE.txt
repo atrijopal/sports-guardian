@@ -1,0 +1,18 @@
+Run this from module1-fingerprinting/ to auto-generate all attack videos:
+
+  python attack_generator.py ../demo/m1-fingerprinting/original/match_clip.mp4
+
+It will generate these attacked versions:
+  - mirror.mp4         → horizontally flipped         SHOULD MATCH ✓
+  - muted.mp4          → audio removed                SHOULD MATCH ✓
+  - reencoded.mp4      → compressed re-encode         SHOULD MATCH ✓
+  - speed_105.mp4      → 5% faster                   SHOULD MATCH ✓
+  - speed_095.mp4      → 5% slower                   SHOULD MATCH ✓
+  - crop.mp4           → 10% cropped edges            SHOULD MATCH ✓
+  - bright.mp4         → brightness +30               SHOULD MATCH ✓
+  - logo.mp4           → logo overlay added           SHOULD MATCH ✓
+
+For the demo — CHECK these one by one to show the system catching each attack.
+
+UNRELATED VIDEO (place any other video here):
+  - unrelated.mp4      → completely different content  SHOULD NOT MATCH ✗

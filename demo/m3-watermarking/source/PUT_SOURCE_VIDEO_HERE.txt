@@ -1,0 +1,5 @@
+Place the BASE video here that you want to watermark.
+Example: broadcast.mp4
+
+This video gets embedded with a unique watermark per viewer.
+Minimum 10 seconds. Longer = more robust extraction.
