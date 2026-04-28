@@ -166,7 +166,6 @@ class GeminiService:
         self.stats = {"briefings": 0, "profiles": 0, "errors": 0, "ollama_fallbacks": 0}
 
     def _call(self, prompt: str, max_tokens: int = 1500) -> str:
-        # Try Gemini first
         try:
             from google import genai
             response = self.client.models.generate_content(
@@ -179,10 +178,15 @@ class GeminiService:
             )
             return response.text.strip()
         except Exception as e:
-            log.warning("[Gemini] Failed (%s) — falling back to Ollama %s", e, _OLLAMA_MODEL)
             self.stats["errors"] += 1
-            self.stats["ollama_fallbacks"] += 1
-            return _call_ollama(prompt, max_tokens)
+            # Try Ollama only if running locally
+            try:
+                log.warning("[Gemini] Failed (%s) — trying Ollama fallback", e)
+                result = _call_ollama(prompt, max_tokens)
+                self.stats["ollama_fallbacks"] += 1
+                return result
+            except Exception:
+                raise e
 
     def generate_briefing(self, stats: dict, top_threats: list[dict]) -> dict:
         """
@@ -223,11 +227,18 @@ Generate a threat intelligence briefing. Return JSON only:
 Return ONLY the JSON object."""
 
         try:
-            text = self._call(prompt, max_tokens=4096)
-            m = re.search(r'\{[\s\S]*\}', text)
-            if not m:
-                raise ValueError("No JSON object found in response")
-            result = json.loads(m.group())
+            from google import genai
+            response = self.client.models.generate_content(
+                model=self.model,
+                contents=prompt,
+                config=genai.types.GenerateContentConfig(
+                    temperature=0.3,
+                    max_output_tokens=4096,
+                    response_mime_type="application/json",
+                ),
+            )
+            text = response.text.strip()
+            result = json.loads(text)
             self.stats["briefings"] += 1
             log.info("[Gemini] Briefing generated — threat level: %s", result.get("threat_level"))
             return result
