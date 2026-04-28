@@ -35,9 +35,10 @@ DEMO_VIDEOS_DIR = "demo_videos"
 TEMP_DIR = "temp_processing"
 
 # ---- Google APIs ----
-GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"
-GEMINI_MODEL = "gemini-2.0-flash"
+import os
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+GEMINI_MODEL = "gemini-2.5-flash"
 
-YOUTUBE_API_KEY = "YOUR_YOUTUBE_API_KEY_HERE"
+YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", "")
 YOUTUBE_SEARCH_ENABLED = True
 YOUTUBE_MAX_RESULTS = 5

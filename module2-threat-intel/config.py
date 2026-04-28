@@ -45,12 +45,13 @@ CERT_TIER2_BATCH_INTERVAL   = 10
 CERT_TIER2_MAX_BATCH        = 15
 
 # ---- Google APIs ----
-GEMINI_API_KEY        = "YOUR_GEMINI_API_KEY_HERE"
-YOUTUBE_API_KEY       = "YOUR_YOUTUBE_API_KEY_HERE"
-SAFE_BROWSING_API_KEY = "YOUR_SAFE_BROWSING_API_KEY_HERE"
+import os
+GEMINI_API_KEY        = os.environ.get("GEMINI_API_KEY", "")
+YOUTUBE_API_KEY       = os.environ.get("YOUTUBE_API_KEY", "")
+SAFE_BROWSING_API_KEY = os.environ.get("SAFE_BROWSING_API_KEY", "")
 
-GEMINI_MODEL     = "gemini-2.0-flash"
-NLP_MODEL        = "gemini-2.0-flash"
+GEMINI_MODEL     = "gemini-2.5-flash"
+NLP_MODEL        = "gemini-2.5-flash"
 NLP_MAX_TOKENS   = 1500
 NLP_BATCH_SIZE   = 15
 NLP_ENABLED      = True
